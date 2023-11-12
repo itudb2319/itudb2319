@@ -1,0 +1,11 @@
+Progress Log
+Yusuf Emir Sezgin - 150200066
+.
+.
+.
+WEEK 6:
+-We created an online database at cockroachLabs
+-races, lapTimes, constructorResults, answers schemas are created to used as tables in our database.
+-All schemas are integrated to our database at once.
+
+
