@@ -1,0 +1,3 @@
+Week 5
+	In order to modify the database as a team, we created an online database at cockroachlabs
+	Created schema for all tables and as a team integrated the code and committed all at once to GitHub.
