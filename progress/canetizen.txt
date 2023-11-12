@@ -1,0 +1,3 @@
+12 Nov 2023 (Week 6): 
+	- We created an online database at "cockroachlabs.com" to modify the database.
+	- I created schemas of the tables (Qualifying, Drivers, driverStandings, Quiz) using planned ERD.
