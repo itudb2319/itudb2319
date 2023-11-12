@@ -1,0 +1,5 @@
+Yusuf Şahin - 150200016
+
+Week 6: 
+  - We crated an online database at "cockroachlabs.com" to work as a team synchronically
+  - I have created tables of results, status, pitstop, constructorStandings according to Entity Relationship Diagram
