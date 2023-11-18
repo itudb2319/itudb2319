@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}OnlyF1s{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('raceResults').classList.add('active');
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <form method="post" class="center">
+        <label for="raceYear">Year</label>
+        <input type="text" id="raceYear" name="raceYear" placeholder="2010"><br>
+        <label for="circuitRef">Circuit</label>
+        <input type="text" id="circuitRef" name="circuitRef" placeholder="monaco"><br>
+        <label for="respNumber"></label>
+        <select id="respNumber" name="respNumber">
+            <option value=10>10</option>
+            <option value=20>20</option>
+            <option value=50>50</option>
+            <option value=100>100</option>
+            <option>All</option>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
+{% block tablediv %}
+    {% if context %}
+        <script>
+            function addTable() {
+                const container = document.getElementById("show-table");
+                const contextData = JSON.parse('{{ context | tojson | safe }}');
+                const table = createTable(contextData);
+                table.caption.textContent = 'Circuit: {{ circuitName }}, Year: {{ raceYear }}, # Responses: {{ respNumber }}'
+                container.appendChild(table);
+            }
+            addTable();
+        </script>
+    {% endif %}
+{% endblock %}

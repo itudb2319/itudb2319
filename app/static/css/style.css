@@ -1,0 +1,109 @@
+* {
+    font-family: ui-sans-serif;
+}
+
+body {
+    background-color: beige;
+}
+
+h1 {
+    color: lightcoral;
+    text-align: center;
+    font-family: ui-sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+  
+
+tr:hover {
+    background-color: lightcoral;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.logo {
+    left: 0;
+    top: 0;
+}
+
+body {
+    margin: 0px;
+}
+
+.topnav {
+    background-color: #333;
+    border-radius: 0 0 20% 20%;
+    overflow: hidden;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: sticky;
+}
+
+.topnav a {
+    float: left;
+    font-size: 18px;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 20px 18px;
+    text-decoration: initial;
+    border-bottom: none;
+}
+
+.topnav a:hover {
+    background-color: #ffdf00;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: red;
+    color: white;
+    font-size: 120%;
+}
+
+.table-caption {
+    font-size: 18px;
+    text-align: left;
+    padding: 5px 40px;
+    color: grey;
+    text-transform: uppercase
+}
+
+form {
+    width: 30%;
+    background-color: azure;
+    border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    outline: none;
+}
+
+input[type=text] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 15px;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+  
+input[type=text]:focus {
+    border: 3px solid #555;
+}
