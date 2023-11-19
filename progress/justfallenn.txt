@@ -8,4 +8,5 @@ WEEK 6:
 -races, lapTimes, constructorResults, answers schemas are created to used as tables in our database.
 -All schemas are integrated to our database at once.
 
-
+WEEK 7 (The 1st Midterm Week):
+-I added getDrivers(), getCircuits(), getSeasons() method to the database.py.
