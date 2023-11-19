@@ -43,6 +43,22 @@ def raceResults():
 		return render_template('raceResults.html', context=data, circuitName=circuitRef, raceYear=raceYear, respNumber=len(context))
 	else:
 		return render_template('raceResults.html')
+		
+@app.route('/drivers', methods=['GET', 'POST'])
+def drivers():
+	context = db.getDrivers()
+	return context
+
+@app.route('/circuits', methods=['GET', 'POST'])
+def circuits():
+	context = db.getCircuits()
+	return context
+
+@app.route('/seasons', methods=['GET', 'POST'])
+def seasons():
+	raceYear = request.form.get('raceYear', default=None, type=str) or None
+	context = db.getSeasons(raceYear)
+	return context
 
 if __name__ == '__main__':
 	app.run(host="127.0.0.1", port="5002", debug=True)
