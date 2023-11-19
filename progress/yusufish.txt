@@ -3,3 +3,6 @@ Yusuf Şahin - 150200016
 Week 6: 
   - We crated an online database at "cockroachlabs.com" to work as a team synchronically
   - I have created tables of results, status, pitstop, constructorStandings according to Entity Relationship Diagram
+
+Week 7 (The 1st Midterm Week):
+  - I have modified app.py file to display data brought from the database via queries.
