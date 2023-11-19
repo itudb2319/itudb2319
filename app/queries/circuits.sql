@@ -1,0 +1,1 @@
+SELECT name, location, country FROM circuits;
