@@ -105,3 +105,48 @@ class Database():
 				self.db.close()
 
 		return data
+
+	def getDrivers(self):
+		with open(path.join('queries', 'drivers.sql'), 'r') as f:
+			query = f.read()
+
+			try:
+				self.cur.execute(query)
+				data= self.cur.fetchall()
+
+			except psycopg2.OperationalError as e:
+				print(e)
+				self.db.rollback()
+				self.db.close()
+
+		return data
+
+	def getCircuits(self):
+		with open(path.join('queries', 'circuits.sql'), 'r') as f:
+			query = f.read()
+
+			try:
+				self.cur.execute(query)
+				data= self.cur.fetchall()
+
+			except psycopg2.OperationalError as e:
+				print(e)
+				self.db.rollback()
+				self.db.close()
+
+		return data
+
+	def getSeasons(self, params):
+		with open(path.join('queries', 'seasons.sql'), 'r') as f:
+			query = f.read()
+
+			try:
+				self.cur.execute(query, params)
+				data= self.cur.fetchall()
+
+			except psycopg2.OperationalError as e:
+				print(e)
+				self.db.rollback()
+				self.db.close()
+
+		return data
