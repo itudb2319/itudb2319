@@ -47,7 +47,13 @@ def raceResults():
 @app.route('/drivers', methods=['GET', 'POST'])
 def drivers():
 	context = db.getDrivers()
-	return context
+	
+	data = {'context': context}
+	return render_template('drivers.html', context=data)
+
+@app.route('/drivers/<path:driverSlug>')
+def driverDetails(driverSlug):
+	return render_template('driver.html', driverInfo=driverSlug)
 
 @app.route('/circuits', methods=['GET', 'POST'])
 def circuits():
