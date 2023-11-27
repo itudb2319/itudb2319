@@ -150,3 +150,16 @@ class Database():
 				self.db.close()
 
 		return data
+		
+	def getUsers(self):
+		with open(path.join('queries', 'users.sql'), 'r') as f:
+			query = f.read()
+
+			try:
+				self.cur.execute(query)
+				data = self.cur.fetchall()
+			except psycopg2.OperationalError as e:
+				print(e)
+				self.db.rollback()
+				self.db.close()
+		return data
