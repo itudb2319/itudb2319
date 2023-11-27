@@ -1,15 +1,28 @@
+@font-face {
+    font-family: 'f1_font';
+    src: url('../fonts/font_f1_regular.otf') format('opentype');
+}
+
 * {
-    font-family: ui-sans-serif;
+    font-family: 'f1_font', sans-serif !important;
 }
 
 body {
-    background-color: beige;
+    background-color: white;
+}
+
+article {
+    margin-top: 20px;
+    margin-left:20px;
+    margin-right:20px;
+    margin-bottom:150px;
 }
 
 h1 {
-    color: lightcoral;
+    color: red;
     text-align: center;
     font-family: ui-sans-serif;
+    font-size: 2.5em;
 }
 
 table {
@@ -18,14 +31,14 @@ table {
 }
   
 th, td {
-    padding: 8px;
+    padding: 5px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
   
 
 tr:hover {
-    background-color: lightcoral;
+    background-color: #ffdf00;
 }
 
 .center {
@@ -44,8 +57,9 @@ body {
 }
 
 .topnav {
+    top: 0;
     background-color: #333;
-    border-radius: 0 0 20% 20%;
+    border-radius: 0 0 10% 10%;
     overflow: hidden;
     border: 0;
     margin: 0;
@@ -55,10 +69,10 @@ body {
 
 .topnav a {
     float: left;
-    font-size: 18px;
-    color: #f2f2f2;
+    font-size: 20px;
+    color: white;
     text-align: center;
-    padding: 20px 18px;
+    padding: 25px 25px;
     text-decoration: initial;
     border-bottom: none;
 }
@@ -66,42 +80,61 @@ body {
 .topnav a:hover {
     background-color: #ffdf00;
     color: black;
+    border-radius: 20%;
+    border: 3px solid black;
 }
 
 .topnav a.active {
     background-color: red;
     color: white;
     font-size: 120%;
+    border-radius: 20%;
 }
 
 .table-caption {
     font-size: 18px;
     text-align: left;
     padding: 5px 40px;
-    color: grey;
+    color: #555;
     text-transform: uppercase
 }
 
 form {
     width: 30%;
-    background-color: azure;
+    background-color: #333;
     border-radius: 15px;
     padding: 10px;
     box-sizing: border-box;
-    border: 3px solid #ccc;
+    border: 3px solid black;
     outline: none;
+    color:white;
+    font-weight: 500;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
     width: 50%;
     padding: 12px 20px;
     margin: 8px 0;
     border-radius: 15px;
     box-sizing: border-box;
-    border: 3px solid #ccc;
+    border: 3px solid black;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
+}
+
+#user_panel {
+    float: right;
+}
+
+#footer {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 17px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 #contact {
