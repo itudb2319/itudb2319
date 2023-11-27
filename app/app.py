@@ -58,13 +58,22 @@ def driverDetails(driverSlug):
 @app.route('/circuits', methods=['GET', 'POST'])
 def circuits():
 	context = db.getCircuits()
-	return context
+	data = {'context': context}
+	return render_template('circuits.html', context=data)
+
+@app.route('/circuits/<path:circuitName>')
+def circuitDetails(circuitName):
+	return render_template('circuit.html', circuitInfo=circuitName)
 
 @app.route('/seasons', methods=['GET', 'POST'])
 def seasons():
 	raceYear = request.form.get('raceYear', default=None, type=str) or None
 	context = db.getSeasons(raceYear)
-	return context
+	return render_template('seasons.html')
+
+@app.route('/quiz', methods = ['GET', 'POST'])
+def quiz():
+	return render_template('quiz.html')
 
 if __name__ == '__main__':
 	app.run(host="127.0.0.1", port="5002", debug=True)
