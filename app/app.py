@@ -74,6 +74,33 @@ def seasons():
 @app.route('/quiz', methods = ['GET', 'POST'])
 def quiz():
 	return render_template('quiz.html')
+	
+@app.route('/gameBlink', methods = ['GET', 'POST'])
+def gameBlink():
+	return render_template('gameBlink.html')
+
+@app.route('/signUp', methods = ['GET', 'POST'])
+def signUp():
+	return render_template('signUp.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        # Check if the username and password match a user in the database
+        if db.getUsers(username) and db.getUsers() == password:
+            return f'Welcome, {username}!'
+        else:
+            return 'Invalid username or password. Please try again.'
+
+    # Render the login form for GET requests
+    return render_template('login.html')
+
+@app.route('/contact', methods = ['GET', 'POST'])
+def contact():
+	return render_template('contact.html')
 
 if __name__ == '__main__':
 	app.run(host="127.0.0.1", port="5002", debug=True)
