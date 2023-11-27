@@ -5,6 +5,7 @@
 
 * {
     font-family: 'f1_font', sans-serif !important;
+    cursor: url('../img/formula-1.ico'), auto;
 }
 
 body {
@@ -63,7 +64,7 @@ body {
     overflow: hidden;
     border: 0;
     margin: 0;
-    padding: 0;
+    padding: 8px;
     position: sticky;
 }
 
@@ -89,6 +90,7 @@ body {
     color: white;
     font-size: 120%;
     border-radius: 20%;
+    border: 3px solid black;
 }
 
 .table-caption {
@@ -131,10 +133,11 @@ input[type=text], input[type=password] {
     text-align: center;
     background-color: #333;
     color: white;
-    padding: 17px;
+    padding: 10px;
     position: fixed;
     bottom: 0;
     width: 100%;
+    border-radius: 10% 10% 0 0;
 }
 
 #contact {
@@ -143,7 +146,7 @@ input[type=text], input[type=password] {
 }
 
 .f1-button {
-    background-color:red; /* Kırmızı tonu */
+    background-color:red;
     border: none;
     color: white;
     padding: 12px 24px;
@@ -155,9 +158,9 @@ input[type=text], input[type=password] {
     cursor: pointer;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease; /* Arka plan renginde geçiş efekti */
+    transition: background-color 0.3s ease;
   }
   
   .f1-button:hover {
-    background-color: green; /* Hover durumunda renk değişimi */
+    background-color: green;
   }
