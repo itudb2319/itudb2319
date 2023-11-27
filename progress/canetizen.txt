@@ -4,3 +4,9 @@
 
 19 Nov 2023 (Week 7, The first midterm week):
 	- I created basic sql queries for Circuits, Drivers and Seasons sections.
+
+27 Nov 2023 (Week 8):
+	- I changed attributes of user_panel which includes login and signup, footer, article and font in css file.
+	- I changed circuits.sql file.
+	- I added circuit.html, circuits.html, quiz.html, seasons.html files.
+	- I updated circuits method, circuitDetails method and quiz method.
