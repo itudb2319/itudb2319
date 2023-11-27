@@ -10,3 +10,10 @@ WEEK 6:
 
 WEEK 7 (The 1st Midterm Week):
 -I added getDrivers(), getCircuits(), getSeasons() method to the database.py.
+
+WEEK 8:
+- I added contact, f1-button, f1-button:hover attributes.
+- I added login(), contact(), gameBlink(), signUp() methods to app.py.
+- I added getUsers() method to the database.py
+- I added html files: login.html, contact.html, gameBlink.html, signUp.html.
+- I added font file.
