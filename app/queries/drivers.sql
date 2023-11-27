@@ -1,1 +1,1 @@
-SELECT forename, surname, nationality, number FROM drivers;
+SELECT forename, surname, nationality, number, driverid FROM drivers;
