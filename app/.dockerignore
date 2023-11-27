@@ -1,0 +1,8 @@
+.dockerignore
+Dockerfile
+**/.DS_Store
+.git
+.gitignore
+progress
+README.md
+app/__pychache__
