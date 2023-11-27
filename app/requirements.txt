@@ -1,0 +1,4 @@
+click
+Flask
+psycopg2_binary
+python-dotenv

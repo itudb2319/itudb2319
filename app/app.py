@@ -1,19 +1,30 @@
 from flask import Flask, request, render_template
-from database import Database
+from database import Database, init_db
+import argparse
 import os
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
-ENV = 'dev'
-if ENV == 'dev':
+parser = argparse.ArgumentParser(
+                    prog='OnlyF1s',
+                    description='Flask App for F1',
+                    epilog='You should provide password for with cloud -c')
+
+parser.add_argument('-c', '--cloud', action='store_true')
+parser.add_argument('-i', '--init_db', action='store_true')
+args = parser.parse_args()
+
+if args.cloud and not args.password:
+    raise AttributeError('You should provide password for with cloud -c')
+
+if not args.cloud:
 	app.debug = True
-	app.config['DB_URI'] = os.environ['DEV_DB']
-	# app.config['DB_URI'] = "dbname=f1 user=root"
+	app.config['DB_URI'] = os.environ['DB_LOCAL'][1:-1]
+	# app.config['DB_URI'] = "host=db port=5432 user=postgres dbname=postgres password=postgres"
+
 else:
 	app.debug = False
-	app.config['DB_URI'] = os.environ['DB']
-
-db = Database(app)
+	app.config['DB_URI'] = os.environ['DB'] % args.password
 
 @app.route('/')
 def index():
@@ -102,5 +113,12 @@ def login():
 def contact():
 	return render_template('contact.html')
 
-if __name__ == '__main__':
-	app.run(host="127.0.0.1", port="5002", debug=True)
+if __name__ == "__main__":
+	print(args.init_db)
+	if args.init_db:
+		with app.app_context():
+			init_db()
+
+	db = Database(app)
+
+	app.run(host="0.0.0.0", port=8000, debug=True)

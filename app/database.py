@@ -139,10 +139,19 @@ def init_db():
 		query = f.read()
 
 	try:
-		print()
 		db = psycopg2.connect(current_app.config['DB_URI'])
 		
 		cur = db.cursor()
+		cur.execute("select * from information_schema.tables where table_name=%s", ('races',))
+		k = cur.fetchall()
+		print(k, 'here1')
+		if len(k) != 0:
+			cur.execute("select * from races LIMIT 5")
+			res = cur.fetchall()
+			if len(res) != 0:
+				print(res, 'here2')
+				return
+		print('Final')
 		cur.execute(query)
 		db.commit()
 
@@ -161,19 +170,4 @@ def init_db():
 
 	else:
 		click.echo('Initialized the database.')
-		
-@click.command('init-db')
-@with_appcontext
-def init_db_command():
-	init_db()
 
-
-def close_db(e=None):
-	g.db.cur.close()
-	g.db.db.close()
-	g.pop('db', None)
-
-	
-def init_app(current_app):
-	#current_app.teardown_appcontext(close_db)
-	current_app.cli.add_command(init_db_command)
