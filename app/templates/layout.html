@@ -14,11 +14,21 @@
                 <img src="{{ url_for('static', filename='img/F1.svg') }}" alt="F1">
             </a>
             <a id='home' href="/">Home</a>
+            <a id='drivers' href="/drivers">Drivers</a>
+            <a id='circuits' href="/circuits">Circuits</a>
+            <a id='seasons' href="/seasons">Seasons</a>
+            <a id='quiz' href='/quiz'>Quizzes</a>
+            <a id='gameBlink' href='/gameBlink'>Blink Game</a>
             <a id='raceResults' href="/raceResults">Race Results</a>
+            <div id="user_panel">
+                <a id='login' href='/login'>Login</a>
+                <a id='signUp' href='/signUp'>Sign-up</a>
+            </div>
         </div>
-
-        <div id="content">{% block content %}{% endblock %}</div>
-        <div id="show-table"></div>
-        <div>{% block tablediv %}{% endblock %}</div>
+        <article>
+            <div id="content">{% block content %}{% endblock %}</div>
+            <div id="show-table">{% block tablediv %}{% endblock %}</div>
+        </article>
+        <footer id="footer">©2023, OnlyF1s<br><br><b><a id='contact' href='/contact'>Contact Us</a></b></footer>
     </body>
 </html>
