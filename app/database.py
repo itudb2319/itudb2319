@@ -1,26 +1,26 @@
 import psycopg2
-import click, os
-from flask import current_app, g
-from flask.cli import with_appcontext
-from os import path
-import os
+from psycopg2.extras import DictCursor, RealDictCursor
+import click
+from flask import current_app
+from os.path import join, dirname, abspath
+from os import chdir
 
-PATH = path.dirname(os.path.abspath(__file__))
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
+APP_PATH = dirname(abspath(__file__))
+DATA_PATH = join(dirname(APP_PATH), 'data')
+QPATH = join(APP_PATH, 'queries')
 
 class Database():
-	def __init__(self, app) -> None:
+	def __init__(self, app):
 		self.app = app
-		self.db, self.cur = self.get_db()
+		self.getDB()
 
-	def get_db(self):
-		self.db = psycopg2.connect(self.app.config['DB_URI'])
-		self.cur = self.db.cursor()
-		return self.db, self.cur
-
-	def getRaceResults(self, params):
-		with open(path.join('queries', 'raceResults.sql'), 'r') as f:
+	def getDB(self):
+		self.conn = psycopg2.connect(self.app.config['DB_URI'], cursor_factory=DictCursor)
+		self.cur = self.conn.cursor()
+		return self.conn, self.cur
+	
+	def getData(self, queryFile, params):
+		with open(join(QPATH, queryFile), 'r') as f:
 			query = f.read()
 			
 			try:
@@ -28,146 +28,112 @@ class Database():
 				data = self.cur.fetchall()
 			
 			except psycopg2.OperationalError as e:
-				print(e)
-				self.db.rollback()
-				self.db.close()
+				click(e)
+				self.conn.rollback()
+				self.conn.close()
 
 		return data
 
 	def getRaceResults(self, params):
-		with open(path.join('queries', 'raceResults.sql'), 'r') as f:
-			query = f.read()
-			
-			try:
-				self.cur.execute(query, vars=params)
-				data = self.cur.fetchall()
-			
-			except psycopg2.OperationalError as e:
-				print(e)
-				self.db.rollback()
-				self.db.close()
-
-		return data
+		return self.getData('raceResults.sql', params)
 
 	def getLastRaceBestLaps(self):
-		with open(path.join('queries', 'lastRaceLapTimes.sql'), 'r') as f:
-			query = f.read()
-
-			try:
-				self.cur.execute(query, {'raceid': 1116})
-				data = self.cur.fetchall()
-			
-			except psycopg2.OperationalError as e:
-				print(e)
-				self.db.rollback()
-				self.db.close()
-
-		return data
-
+		return self.getData('lastRaceLapTimes.sql', {'raceid': 1116})
+		# raceid given manually because last race have no records in laptimes
+	
 	def getDrivers(self):
-		with open(path.join('queries', 'drivers.sql'), 'r') as f:
+		with open(join(QPATH, 'drivers.sql'), 'r') as f:
 			query = f.read()
 
 			try:
 				self.cur.execute(query)
-				data= self.cur.fetchall()
+				data = self.cur.fetchall()
 
 			except psycopg2.OperationalError as e:
-				print(e)
-				self.db.rollback()
-				self.db.close()
+				click(e)
+				self.conn.rollback()
+				self.conn.close()
 
 		return data
 
 	def getCircuits(self):
-		with open(path.join('queries', 'circuits.sql'), 'r') as f:
-			query = f.read()
-
-			try:
-				self.cur.execute(query)
-				data= self.cur.fetchall()
-
-			except psycopg2.OperationalError as e:
-				print(e)
-				self.db.rollback()
-				self.db.close()
-
-		return data
-
-	def getSeasons(self, params):
-		with open(path.join('queries', 'seasons.sql'), 'r') as f:
-			query = f.read()
-
-			try:
-				self.cur.execute(query, params)
-				data= self.cur.fetchall()
-
-			except psycopg2.OperationalError as e:
-				print(e)
-				self.db.rollback()
-				self.db.close()
-
-		return data
-		
-	def getUsers(self):
-		with open(path.join('queries', 'users.sql'), 'r') as f:
+		with open(join(QPATH, 'circuits.sql'), 'r') as f:
 			query = f.read()
 
 			try:
 				self.cur.execute(query)
 				data = self.cur.fetchall()
+
 			except psycopg2.OperationalError as e:
-				print(e)
-				self.db.rollback()
-				self.db.close()
+				click(e)
+				self.conn.rollback()
+				self.conn.close()
+
 		return data
 
+	def getSeasons(self, params):
+		with open(join(QPATH, 'seasons.sql'), 'r') as f:
+			query = f.read()
 
-def insertCSV(tableCsvPaths: dict, cursor, db):
-	PATHDIR = path.dirname(PATH)
+			try:
+				self.cur.execute(query, params)
+				data = self.cur.fetchall()
+
+			except psycopg2.OperationalError as e:
+				click(e)
+				self.conn.rollback()
+				self.conn.close()
+
+		return data
+		
+	def login(self, username, password):
+		return self.getData('auth.sql', {'username': username, 'password': password})
+		
+def insertCSV(tableCsvPaths: dict, cursor, conn):
+	PATHDIR = dirname(APP_PATH)
 	for table, csvPath in tableCsvPaths.items():
-		csvPathabs = path.join(PATHDIR, 'data', csvPath)
+		csvPathabs = join(PATHDIR, 'data', csvPath)
 		with open(csvPathabs, 'r') as f:
 			copyQuery = f'COPY {table} FROM stdin WITH CSV HEADER NULL \'\\N\''
 
 			cursor.copy_expert(sql=copyQuery, file=f)
-			db.commit()
+			conn.commit()
 			print(f'{table} is inserted!')
 
 def init_db():
-	with open(path.join(PATH, 'queries', 'schema_dev.sql')) as f:
+	with open(join(QPATH, 'schema_dev.sql')) as f:
 		query = f.read()
 
 	try:
-		db = psycopg2.connect(current_app.config['DB_URI'])
-		
-		cur = db.cursor()
+		conn = psycopg2.connect(current_app.config['DB_URI'])
+		cur = conn.cursor()
+
+		# check if the db is already initialized
 		cur.execute("select * from information_schema.tables where table_name=%s", ('races',))
-		k = cur.fetchall()
-		print(k, 'here1')
-		if len(k) != 0:
+		created = cur.fetchall()
+		if len(created) != 0:
 			cur.execute("select * from races LIMIT 5")
-			res = cur.fetchall()
-			if len(res) != 0:
-				print(res, 'here2')
-				return
-		print('Final')
+			if len(cur.fetchall()) > 0: return
+		
 		cur.execute(query)
-		db.commit()
+		conn.commit()
 
 		tables = ['drivers', 'constructors', 'circuits', 'races', 'qualifying',
 			'status', 'sprintResults', 'results', 'pitStops', 'lapTimes',
 			'driverStandings', 'constructorStandings', 'constructorResults']
 		
-		tableCsvPaths = { table: os.path.join(table+'.csv') for table in tables }
+		tableCsvPaths = {table: join(DATA_PATH, table+'.csv') for table in tables}
 		
-		insertCSV(tableCsvPaths, cur, db)
+		insertCSV(tableCsvPaths, cur, conn)
 
 	except psycopg2.OperationalError as e:
-		print(e)
-		db.rollback()
-		db.close()
+		click(e)
+		conn.rollback()
 
 	else:
 		click.echo('Initialized the database.')
+	
+	finally:
+		cur.close()
+		conn.close()
 

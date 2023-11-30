@@ -73,13 +73,13 @@ body {
     font-size: 20px;
     color: white;
     text-align: center;
-    padding: 25px 25px;
+    padding: 15px 25px;
     text-decoration: initial;
     border-bottom: none;
 }
 
 .topnav a:hover {
-    background-color: #ffdf00;
+    background-color: white;
     color: black;
     border-radius: 20%;
     border: 3px solid black;
@@ -145,22 +145,9 @@ input[type=text], input[type=password] {
     color: white;
 }
 
-.f1-button {
-    background-color:red;
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 8px 4px;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+#user_panel {
+    padding: 5px;
+    background-color: red;
     transition: background-color 0.3s ease;
-  }
-  
-  .f1-button:hover {
-    background-color: green;
-  }
+    border-radius: 5px;
+}

@@ -7,8 +7,30 @@
             document.getElementById("seasons").classList.add('active');
         });
     </script>
-
 {% endblock %}
 
 {% block content %}
+    <form method="post" class="center">
+        <label for="year">Year</label>
+        <input type="text" id="year" name="year" placeholder="2010"><br>
+        <label for="respNumber"></label>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
+
+{% block tablediv %}
+    {% if context %}
+        <script>
+            function addTable() {
+                const container = document.getElementById("show-table");
+                const contextData = JSON.parse('{{ context | tojson | safe }}');
+                const table = createTable(contextData);
+                table.caption.textContent = 'Year: {{ year }}, # Responses: {{ respNumber }}'
+                container.appendChild(table);
+            }
+            addTable();
+        </script>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
 {% endblock %}

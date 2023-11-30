@@ -1,3 +1,0 @@
-itudb2319 dosyası içinde çalıştırmanız gerekiyor
-docker build --tag onlyf1s .			—>  docker image oluşturuyor onlyf1s da image name oluyor
-docker run -it --name <container_name> --env-file .env -p 5550:5000 -d <image_name>    —> container oluşturuyor 5500’da bağlanabiliyorsun

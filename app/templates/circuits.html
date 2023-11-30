@@ -10,16 +10,16 @@
     </script>
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var rows = document.querySelectorAll(".clickable-row");
-        rows.forEach(function (row) {
-            row.addEventListener("click", function () {
-                window.location = row.dataset.href;
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var rows = document.querySelectorAll(".clickable-row");
+            rows.forEach(function (row) {
+                row.addEventListener("click", function () {
+                    window.location = row.dataset.href;
+                });
             });
         });
-    });
-</script>
+    </script>
 {% endblock %}
 
 <h1>Circuits</h1>

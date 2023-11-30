@@ -1,9 +1,11 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, current_app
 from database import Database, init_db
 import argparse
+from pages.raceResults import raceResultsBP
 import os
 
-app = Flask(__name__, template_folder='templates', static_folder='static')
+app = Flask('OnlyF1s', template_folder='templates', static_folder='static')
+app.register_blueprint(raceResultsBP)
 
 parser = argparse.ArgumentParser(
                     prog='OnlyF1s',
@@ -31,33 +33,14 @@ def index():
 	data = dict()
 	data['caption_text'] = 'Last Race Lap Times for Drivers'
 	data['titles'] = ['Circuit', 'Lap', 'Time', 'Name', 'Nationality']
-	data['context'] = db.getLastRaceBestLaps()
+	data['context'] = current_app.db.getLastRaceBestLaps()
 	return render_template('index.html', context=data)
 
-@app.route('/raceResults', methods=['GET', 'POST'])
-def raceResults():
-	titles=["Name", "Surname", "Nationality", "No.", "Circuit name", "Year", "fastest lap", "position", "position text*"]
-	
-	if request.method == 'POST':
-		raceYear = request.form.get('raceYear', default=None, type=str) or None
-		respNumber = request.form.get('respNumber', default=None, type=int)
-		circuitRef = request.form.get('circuitRef', default='', type=str).lower()
-		
-		params = {'raceYear': raceYear, 'respNumber': None if respNumber is None else min(respNumber, 100), 'circuitRef': f'%{circuitRef.lower()}%'}
-		context = db.getRaceResults(params)
-		
-		data = dict()
-		data['caption_text'] = 'result'
-		data['titles'] = titles
-		data['context'] = context
-		
-		return render_template('raceResults.html', context=data, circuitName=circuitRef, raceYear=raceYear, respNumber=len(context))
-	else:
-		return render_template('raceResults.html')
+
 		
 @app.route('/drivers', methods=['GET', 'POST'])
 def drivers():
-	context = db.getDrivers()
+	context = current_app.db.getDrivers()
 	
 	data = {'context': context}
 	return render_template('drivers.html', context=data)
@@ -68,7 +51,7 @@ def driverDetails(driverSlug):
 
 @app.route('/circuits', methods=['GET', 'POST'])
 def circuits():
-	context = db.getCircuits()
+	context = current_app.db.getCircuits()
 	data = {'context': context}
 	return render_template('circuits.html', context=data)
 
@@ -78,8 +61,19 @@ def circuitDetails(circuitName):
 
 @app.route('/seasons', methods=['GET', 'POST'])
 def seasons():
-	raceYear = request.form.get('raceYear', default=None, type=str) or None
-	context = db.getSeasons(raceYear)
+	titles=["Name", "Year"]
+	if request.method == 'POST':
+		year = request.form.get('year', default=None, type=str) or None
+		
+		params = {'sYear': year}
+		context = current_app.db.getSeasons(params)
+		
+		data = dict()
+		data['titles'] = titles
+		data['context'] = context
+
+		return render_template('seasons.html', context=data, year=year, respNumber=len(context))
+
 	return render_template('seasons.html')
 
 @app.route('/quiz', methods = ['GET', 'POST'])
@@ -101,7 +95,7 @@ def login():
         password = request.form.get('password')
 
         # Check if the username and password match a user in the database
-        if db.getUsers(username) and db.getUsers() == password:
+        if current_app.db.login(username, password):
             return f'Welcome, {username}!'
         else:
             return 'Invalid username or password. Please try again.'
@@ -114,11 +108,12 @@ def contact():
 	return render_template('contact.html')
 
 if __name__ == "__main__":
-	print(args.init_db)
 	if args.init_db:
 		with app.app_context():
 			init_db()
+	
+	with app.app_context():
+		current_app.db = Database(app)
 
-	db = Database(app)
 
 	app.run(host="0.0.0.0", port=8000, debug=True)
