@@ -29,7 +29,7 @@ if args.cloud and not args.password:
 
 if not args.cloud:
 	app.debug = True
-	app.config['DB_URI'] = "postgresql://itudb2319:IqZBVpdW9dyX2LR1865w7g@onlyf1ns-11462.8nj.cockroachlabs.cloud:26257/f1?sslmode=verify-full"
+	app.config['DB_URI'] = os.environ['DB_LOCAL'][1:-1]
 	# app.config['DB_URI'] = "host=db port=5432 user=postgres dbname=postgres password=postgres"
 
 else:
