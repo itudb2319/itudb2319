@@ -1,3 +1,5 @@
+/*Layout Style*/
+
 @font-face {
     font-family: 'f1_font';
     src: url('../fonts/font_f1_regular.otf') format('opentype');
@@ -10,13 +12,14 @@
 
 body {
     background-color: white;
+    margin: 0px;
 }
 
-article {
+#layout_section {
     margin-top: 20px;
-    margin-left:20px;
-    margin-right:20px;
-    margin-bottom:150px;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-bottom: 120px;
 }
 
 h1 {
@@ -26,38 +29,13 @@ h1 {
     font-size: 2.5em;
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-  
-th, td {
+#user_panel {
     padding: 5px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-  
-
-tr:hover {
-    background-color: #ffdf00;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
 }
 
-.center {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-.logo {
-    left: 0;
-    top: 0;
-}
-
-body {
-    margin: 0px;
-}
-
-.topnav {
+#topnav {
     top: 0;
     background-color: #333;
     border-radius: 0 0 10% 10%;
@@ -68,7 +46,7 @@ body {
     position: sticky;
 }
 
-.topnav a {
+#topnav a {
     float: left;
     font-size: 20px;
     color: white;
@@ -78,55 +56,17 @@ body {
     border-bottom: none;
 }
 
-.topnav a:hover {
+#topnav a:hover {
     background-color: white;
     color: black;
     border-radius: 20%;
-    border: 3px solid black;
 }
 
-.topnav a.active {
+#topnav a.active {
     background-color: red;
     color: white;
     font-size: 120%;
     border-radius: 20%;
-    border: 3px solid black;
-}
-
-.table-caption {
-    font-size: 18px;
-    text-align: left;
-    padding: 5px 40px;
-    color: #555;
-    text-transform: uppercase
-}
-
-form {
-    width: 30%;
-    background-color: #333;
-    border-radius: 15px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 3px solid black;
-    outline: none;
-    color:white;
-    font-weight: 500;
-}
-
-input[type=text], input[type=password] {
-    width: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    border-radius: 15px;
-    box-sizing: border-box;
-    border: 3px solid black;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    outline: none;
-}
-
-#user_panel {
-    float: right;
 }
 
 #footer {
@@ -146,8 +86,101 @@ input[type=text], input[type=password] {
 }
 
 #user_panel {
+    float: right;
+}
+
+/*Table Style*/
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+th, td {
     padding: 5px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+  
+
+tr:hover {
+    background-color: #ffdf00;
+}
+
+.table-caption {
+    font-size: 18px;
+    text-align: left;
+    padding: 5px 40px;
+    color: #555;
+    text-transform: uppercase
+}
+
+/* Form Style */
+
+form {
+    width: 30%;
+    background-color: #333;
+    border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 3px solid black;
+    outline: none;
+    color:white;
+    font-weight: 500;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+input[type=text], input[type=password], input[type=email], textarea {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 15px;
+    box-sizing: border-box;
+    border: 3px solid black;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+/* Button Style */
+
+.f1-button {
     background-color: red;
-    transition: background-color 0.3s ease;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    cursor: pointer;
     border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.f1-button:hover {
+    background-color: green;
+}
+
+/* Filter Style */
+
+.dropdown-content {
+    float: right;
+    display: none;
+    position: absolute;
+    background-color: #333;
+    border: 3px solid black;
+    padding: 12px;
+    z-index: 1;
+}
+.dropdown-content label {
+    display: block;
+    margin-bottom: 8px;
+    color:white
+}
+
+.filter {
+    float:right;
 }
