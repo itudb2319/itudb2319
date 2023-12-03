@@ -6,10 +6,11 @@
         <link rel="icon" class='image' href="{{ url_for('static', filename='img/F1.svg') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/filter.js') }}"></script>
         {% endblock %}
     </head>
     <body>
-        <div class="topnav">
+        <div id="topnav">
             <a href="/" class="logo">
                 <img src="{{ url_for('static', filename='img/F1.svg') }}" alt="F1">
             </a>
@@ -24,10 +25,10 @@
                 <a id='signUp' href='/auth/signUp'>Sign-up</a>
             </div>
         </div>
-        <article>
+        <section id="layout_section">
             <div id="content">{% block content %}{% endblock %}</div>
             <div id="show-table">{% block tablediv %}{% endblock %}</div>
-        </article>
+        </section>
         <footer id="footer">©2023, OnlyF1s<br><br><b><a id='contact' href='/contact'>Contact Us</a></b></footer>
     </body>
 </html>
