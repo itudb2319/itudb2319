@@ -1,0 +1,1 @@
+SELECT (users.password = %(username)s) FROM users WHERE username=%(username)s;
