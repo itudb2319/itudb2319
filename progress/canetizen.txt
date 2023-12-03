@@ -10,3 +10,7 @@
 	- I changed circuits.sql file.
 	- I added circuit.html, circuits.html, quiz.html, seasons.html files.
 	- I updated circuits method, circuitDetails method and quiz method.
+
+03 Dec 2023 (Week 9):
+	- I implemented a filter system for drivers section, changed style.css, drivers.py and other related files.
+	
