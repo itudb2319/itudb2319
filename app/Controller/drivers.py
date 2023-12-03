@@ -1,5 +1,5 @@
-from flask import request, render_template, Blueprint, current_app
-from ..Modal.drivers import getDrivers
+from flask import request, render_template, Blueprint
+from ..Modal.drivers import getDrivers, getFilteredDrivers
 
 driversBP = Blueprint('drivers', __name__, url_prefix='/drivers')
 
@@ -23,14 +23,14 @@ def drivers():
 				
 		if len(selected_list) != 0:
 			print(selected_columns)
-			context = current_app.db.getFilteredDrivers(selected_list)	
+			context = getFilteredDrivers(selected_list)	
 		
 		else:
-			context = current_app.db.getDrivers()
+			context = getDrivers()
 			selected_columns = ["Name", "Surname", "Nationality", "Number"]
 				
 	elif request.method == "GET":
-		context = current_app.db.getDrivers()
+		context = getDrivers()
 		selected_columns = ["Name", "Surname", "Nationality", "Number"]
 
 	data = {'column_dict': column_dict, 'headers': selected_columns, 'context': context}	
