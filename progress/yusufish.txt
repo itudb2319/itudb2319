@@ -11,3 +11,8 @@ Week 8 (The 2nd Midterm Week):
   - I have added drivers and driveDetails functions
   - I have updated index & layout templates and drivers & driver templates 
   - I have updated drivers.sql
+
+Week 9:
+  - I have changed the code structure. It is compatible with MVC pattern now.
+  - I have performed some minor changed on a few file and classes i.e Database class, app.py.
+  - I have configured the dockerfile and docker-compsose.yaml files
