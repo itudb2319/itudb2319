@@ -23,27 +23,44 @@
 <h1>Drivers</h1>
 
 {% if context['context'] %}
-    <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Nationality</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for driver in context['context'] %}
-                <tr class="clickable-row" data-href="{{ url_for('driverDetails', driverSlug=driver[4]) }}">
-                    <td>{{ loop.index }}</td>
-                    <td>{{ driver[0] }}</td>
-                    <td>{{ driver[1] }}</td>
-                    <td>{{ driver[2] }}</td>
-                </tr>
+<div id="show_attributes">
+    <button onclick="toggleDropdown()" class="f1-button">Show</button>
+    <div class="dropdown-content" id="dropdownContent">
+        <form method="POST" action="/drivers" id="show_form">
+            {% for key in context['column_dict'].keys(): %}
+            <div class="driver_form_checkboxes">
+                <label for={{key}} class="checkbox_label">{{context['column_dict'][key]}}</label>
+                <input type="checkbox" class = "checkbox_checkbox"name={{key}} id={{key}} value="on">
+            </div>
+            <br>
             {% endfor %}
-        </tbody>
-    </table>
+            <br>
+            <br>
+            <input type="submit" value="Apply" class="f1-button">
+        </form>
+    </div>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            {% for header in context['headers'] %}
+            <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for driver in context['context'] %}
+        <tr class="clickable-row" data-href="{{ url_for('drivers.driverDetails', driverSlug=driver[0]) }}">
+        <tr>
+            {% for d in range(driver|length) %}
+            <td>{{ driver[d]}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% else %}
-    <p>No drivers found.</p>
+<p>No drivers found.</p>
 {% endif %}
 {% endblock %}
