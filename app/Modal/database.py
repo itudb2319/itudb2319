@@ -18,6 +18,15 @@ class Database:
         )
         self.cur = self.conn.cursor()
 
+    def refreshDatabaseConnection(self):
+        self.conn.close()
+        self.conn = psycopg2.connect(
+            " user=" + environ.get('POSTGRES_USER') +
+            " host=" + environ.get('POSTGRES_HOST') +
+            " password=" + environ.get('POSTGRES_PASSWORD') +
+            " dbname=" + environ.get('POSTGRES_DB')
+        )
+
     def initDb(self):
         with open(join(self.QPATH, 'schema_dev.sql')) as f:
             query = f.read()
@@ -61,7 +70,7 @@ class Database:
             self.cur.execute(query, params)
             if commit == 1:
                 self.conn.commit()
-                self.cur.close()
+                self.refreshDatabaseConnection()
                 return
             else:
                 if getData == 1:
@@ -83,7 +92,7 @@ class Database:
             self.cur.execute(query, params)
             if commit == 1:
                 self.conn.commit()
-                self.cur.close()
+                self.refreshDatabaseConnection()
         except psycopg2.Error as Error:
             self.conn.rollback()
             raise ValueError(f"""An error has been occured --> {Error}\nThis is the query:\n\t{query}""")
