@@ -2,51 +2,52 @@
 {% block title %}Drivers{% endblock %}
 {% block content %}
 {% block head %}
-    {{ super() }}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById("circuits").classList.add('active');
-        });
-    </script>
+{{ super() }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById("circuits").classList.add('active');
+    });
+</script>
 
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var rows = document.querySelectorAll(".clickable-row");
-            rows.forEach(function (row) {
-                row.addEventListener("click", function () {
-                    window.location = row.dataset.href;
-                });
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var rows = document.querySelectorAll(".clickable-row");
+        rows.forEach(function (row) {
+            row.addEventListener("click", function () {
+                window.location = row.dataset.href;
             });
         });
-    </script>
+    });
+</script>
 {% endblock %}
 
 <h1>Circuits</h1>
 
 {% if context['context'] %}
-    <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Country</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for circuit in context['context'] %}
-                <tr class="clickable-row" data-href="{{ url_for('circuits.circuitDetails', circuitName=circuit[0]) }}">
-                    <td>{{ loop.index }}</td>
-                    <td>{{ circuit[0] }}</td>
-                    <td>{{ circuit[1] }}</td>
-                    <td>{{ circuit[2] }}</td>
-                </tr>
+{% set checkbox_dict=context['column_dict'] %}
+{% set action="/circuits"%}
+{% include 'misc/button.html' %}
+
+<table>
+    <thead>
+        {% for header in context['headers'] %}
+        <th>{{header}}</th>
+        {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for circuit in context['context'] %}
+        <tr class="clickable-row" data-href="{{ url_for('circuits.circuitDetails', circuitName=circuit[0]) }}">
+        <tr>
+            {% for c in range(circuit|length) %}
+            <td>{{ circuit[c]}}</td>
             {% endfor %}
-        </tbody>
-    </table>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% else %}
-    <p>No circuits found.</p>
+<p>No circuits found.</p>
 {% endif %}
 {% endblock %}
-
