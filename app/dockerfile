@@ -1,0 +1,23 @@
+FROM --platform=$BUILDPLATFORM python:3.10-alpine
+
+WORKDIR /project
+
+COPY app.py /project
+
+WORKDIR /project/data
+
+COPY data/ .
+
+WORKDIR /project/app
+
+COPY app/ .
+
+RUN mkdir uploads
+
+RUN pip install -r requirements.txt
+
+EXPOSE 5001
+
+ENV FLASK_APP=app.py
+
+CMD ["python3", "../app.py"]

@@ -1,0 +1,55 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./app/dockerfile 
+    restart: always
+    container_name: app
+    ports:
+      - "5001:5001"
+    depends_on:
+      - database
+      - rabbitmq
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+    env_file:
+      - .env
+
+  database:
+    image: "postgres:latest"
+    restart: always
+    container_name: database
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    container_name: rabbitmq
+    hostname: my-rabbit
+    env_file:
+      - .env
+    environment:
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+    ports:
+      - ${RABBITMQ_PORT_1}
+      - ${RABBITMQ_PORT_2}
+
+volumes:
+  db-data:
