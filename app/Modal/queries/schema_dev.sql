@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS drivers(
-	driverId INT GENERATED ALWAYS AS IDENTITY,
+	driverId INT GENERATED ALWAYS AS IDENTITY (START WITH 860),
 	driverRef VARCHAR(255),
 	number INT,
 	code VARCHAR(3),
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS drivers(
 );
 
 CREATE TABLE IF NOT EXISTS constructors(
-	constructorId INT GENERATED ALWAYS AS IDENTITY,
+	constructorId INT GENERATED ALWAYS AS IDENTITY (START WITH 78),
 	constructorRef VARCHAR(255),
 	name VARCHAR(255),
 	nationality VARCHAR(255),
@@ -59,8 +59,10 @@ CREATE TABLE IF NOT EXISTS races(
 
 	PRIMARY KEY(raceId),
 	CONSTRAINT fkCircuitsRaces
-		FOREIGN KEY(circuitId)
-			REFERENCES circuits(circuitId)
+		FOREIGN KEY(circuitId) REFERENCES circuits(circuitId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS qualifying (
@@ -73,16 +75,24 @@ position INT,
 q1 VARCHAR(255),
 q2 VARCHAR(255),
 q3 VARCHAR(255),
+
 PRIMARY KEY (qualifyId),
+
 CONSTRAINT fkQualifyingRaces
-	FOREIGN KEY(raceId)
-		REFERENCES races(raceId),
+	FOREIGN KEY(raceId) REFERENCES races(raceId)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
+
 CONSTRAINT fkQualifyingDrivers
-	FOREIGN KEY(driverId)
-		REFERENCES drivers(driverId),
+	FOREIGN KEY(driverId) REFERENCES drivers(driverId)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
+
 CONSTRAINT fkQualifyingConstructors
-	FOREIGN KEY (constructorId)
-		REFERENCES constructors (constructorId)
+	FOREIGN KEY (constructorId)	REFERENCES constructors (constructorId)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS status (
@@ -112,20 +122,25 @@ CREATE TABLE IF NOT EXISTS sprintResults(
 
 	PRIMARY KEY(sprintResultId),
 	CONSTRAINT fkRacesSprintResults
-		FOREIGN KEY(raceID)
-			REFERENCES races(raceId),
+		FOREIGN KEY(raceID)	REFERENCES races(raceId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkDriversSprintResults
-		FOREIGN KEY(driverId)
-			REFERENCES drivers(driverId),
+		FOREIGN KEY(driverId) REFERENCES drivers(driverId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkConstructorsSprintResults
-		FOREIGN KEY(constructorId)
-			REFERENCES constructors(constructorId),
+		FOREIGN KEY(constructorId) REFERENCES constructors(constructorId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkStatusSprintResults
-		FOREIGN KEY(statusId)
-			REFERENCES status(statusId)
+		FOREIGN KEY(statusId) REFERENCES status(statusId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS results(
@@ -151,20 +166,25 @@ CREATE TABLE IF NOT EXISTS results(
 	PRIMARY KEY(resultId),
 
 	CONSTRAINT fkRacesResults
-		FOREIGN KEY(raceId)
-			REFERENCES races(raceId),
+		FOREIGN KEY(raceId) REFERENCES races(raceId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkDriverResults
-		FOREIGN KEY(driverId)
-			REFERENCES drivers(driverId),
+		FOREIGN KEY(driverId) REFERENCES drivers(driverId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkConstructorsResults
-		FOREIGN KEY(constructorId)
-			REFERENCES constructors(constructorId),
+		FOREIGN KEY(constructorId) REFERENCES constructors(constructorId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT FkStatusResults
-		FOREIGN KEY(statusId)
-			REFERENCES status(statusId)
+		FOREIGN KEY(statusId) REFERENCES status(statusId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS pitStops (
@@ -179,10 +199,15 @@ CREATE TABLE IF NOT EXISTS pitStops (
 	PRIMARY KEY(raceId, driverId, stop),
 
 	CONSTRAINT fkRacesPitStops
-	FOREIGN KEY(raceId) REFERENCES races(raceId),
+		FOREIGN KEY(raceId) REFERENCES races(raceId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkDriversPitStops
-	FOREIGN KEY(driverId) REFERENCES drivers(driverId)
+		FOREIGN KEY(driverId) REFERENCES drivers(driverId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS lapTimes(
@@ -196,10 +221,15 @@ CREATE TABLE IF NOT EXISTS lapTimes(
 	PRIMARY KEY(raceId, driverId, lap),
 
 	CONSTRAINT fkRacesLapTimes
-		FOREIGN KEY(raceId) REFERENCES races(raceId),
+		FOREIGN KEY(raceId) REFERENCES races(raceId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkDriversLapTimes
 		FOREIGN KEY(driverId) REFERENCES drivers(driverId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS driverStandings (
@@ -214,12 +244,15 @@ CREATE TABLE IF NOT EXISTS driverStandings (
 	PRIMARY KEY (driverStandingsId),
 
 	CONSTRAINT fkRacesDriverStandings
-		FOREIGN KEY(raceId)
-			REFERENCES races(raceId),
+		FOREIGN KEY(raceId)	REFERENCES races(raceId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkDriversDriverStandings
-		FOREIGN KEY(driverId)
-			REFERENCES drivers(driverId)
+		FOREIGN KEY(driverId) REFERENCES drivers(driverId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS constructorStandings(
@@ -234,12 +267,15 @@ CREATE TABLE IF NOT EXISTS constructorStandings(
 	PRIMARY KEY(constructorStandingsId),
 
 	CONSTRAINT fkRacesConstructorStandings
-		FOREIGN KEY(raceId)
-			REFERENCES races(raceId),
+		FOREIGN KEY(raceId)	REFERENCES races(raceId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkConstructorsConstructorStandings
-		FOREIGN KEY(constructorId)
-			REFERENCES constructors(constructorId)
+		FOREIGN KEY(constructorId) REFERENCES constructors(constructorId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS constructorResults(
@@ -252,12 +288,15 @@ CREATE TABLE IF NOT EXISTS constructorResults(
 	PRIMARY KEY(constructorResultsId),
 
 	CONSTRAINT fkRacesConstructorResults
-		FOREIGN KEY(raceId)
-			REFERENCES races(raceId),
+		FOREIGN KEY(raceId) REFERENCES races(raceId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkConstructorsConstructorResults
-		FOREIGN KEY(constructorId)
-			REFERENCES constructors(constructorId)
+		FOREIGN KEY(constructorId) REFERENCES constructors(constructorId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+
 );
 
 
@@ -295,10 +334,27 @@ CREATE TABLE IF NOT EXISTS answers(
 	UNIQUE (userId, quizId, time),
 
 	CONSTRAINT fkUserAnswers
-		FOREIGN KEY(userId)
-			REFERENCES users(userId),
+		FOREIGN KEY(userId) REFERENCES users(userId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 
 	CONSTRAINT fkQuizAnswers
-		FOREIGN KEY(quizId)
-			REFERENCES quiz(quizId)
+		FOREIGN KEY(quizId) REFERENCES quiz(quizId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+
 );
+
+
+CREATE TABLE IF NOT EXISTS lkp_tables(
+	tableId INT GENERATED ALWAYS AS IDENTITY,
+	tableName varchar(30),
+
+	PRIMARY KEY (tableId)
+);
+
+INSERT INTO lkp_tables (tableName)
+SELECT table_name
+FROM information_schema.tables
+WHERE 
+	table_schema = 'public' AND table_name != 'lkp_tables';
