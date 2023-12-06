@@ -1,4 +1,5 @@
-from flask import request, render_template, Blueprint, current_app
+from flask import request, render_template, Blueprint, flash
+from ..Modal.database import db
 
 authBP = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -9,7 +10,7 @@ def login():
         password = request.form.get('password')
 
         # Check if the username and password match a user in the database
-        if current_app.db.login(username, password):
+        if db.login(username, password):
             return f'Welcome, {username}!'
         else:
             return 'Invalid username or password. Please try again.'
@@ -23,11 +24,10 @@ def signUp():
         username = request.form.get('New Username')
         password = request.form.get('New Password')
 
-        if current_app.db.userCheck(username, password):
+        if db.userCheck(username, password):
             return 'ERROR! TRY AGAIN'
         else:
-            current_app.db.signUp(username, password)
+            db.signUp(username, password)
             return 'Account created successfully. You can now log in.'
     
     return render_template('signUp.html')
-
