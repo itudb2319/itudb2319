@@ -8,6 +8,7 @@ from .Controller.quizzes import quizBP
 from .Controller.raceResults import raceResultsBP
 from .Controller.seasons import seasonsBP
 from .Controller.auth import authBP
+from .Controller.admin import adminBP
 
 from app.Modal.database import db
 
@@ -22,6 +23,7 @@ def create_app():
     app.register_blueprint(gameBlinkBP)
     app.register_blueprint(raceResultsBP)
     app.register_blueprint(contactBP)
+    app.register_blueprint(adminBP)
 
     db.initDb()
 
