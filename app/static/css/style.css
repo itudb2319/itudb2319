@@ -15,7 +15,7 @@ body {
     margin: 0px;
 }
 
-#layoutSection {
+#layout_section {
     margin-top: 20px;
     margin-left: 80px;
     margin-right: 80px;
@@ -29,8 +29,7 @@ h1 {
     font-size: 2.5em;
 }
 
-#userPanel {
-    float: right;
+#user_panel {
     padding: 5px;
     transition: background-color 0.3s ease;
     border-radius: 5px;
@@ -84,6 +83,10 @@ h1 {
 #contact {
     text-decoration: none;
     color: white;
+}
+
+#user_panel {
+    float: right;
 }
 
 /*Table Style*/
@@ -172,10 +175,11 @@ input[type=text], input[type=password], input[type=email], textarea {
     width: max-content;
 }
 .dropdown-content label {
+    
     color:white
 }
 
-#show_attributes {
+.show_attributes {
     float: right;
     margin: 0;
     margin: 0 0 2em 0;
@@ -183,6 +187,6 @@ input[type=text], input[type=password], input[type=email], textarea {
     width: 5%;
 }
 
-.driver_form_checkboxes {
+.form_checkboxes {
     display:flex;
 }
