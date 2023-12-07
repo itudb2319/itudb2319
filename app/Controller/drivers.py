@@ -5,7 +5,7 @@ driversBP = Blueprint('drivers', __name__, url_prefix='/drivers')
 
 @driversBP.route('/', methods=['GET', 'POST'])
 def drivers():
-	column_dict = {
+	columnDict = {
 			"driverId": "ID",
 			"forename": "Name",
 			"surname": "Surname",
@@ -16,18 +16,18 @@ def drivers():
 			"dob": "Date of Birth"
 			}
 		
-	default_list = ["ID", "Name", "Surname", "Nationality", "Number"]
-	default_list_keys = ["driverId", "forename", "surname", "nationality", "number"]
+	defaultList = ["ID", "Name", "Surname", "Nationality", "Number"]
+	defaultListKeys = ["driverId", "forename", "surname", "nationality", "number"]
 
 	if request.method == "POST":
-		selected_columns, context = makeShow("driverId", request.form, default_list, "drivers", default_list_keys, **column_dict)
+		selectedColumns, context = makeShow("driverId", request.form, defaultList, "drivers", defaultListKeys, **columnDict)
 
 	elif request.method == "GET":
-		context = getTableQuery("drivers", default_list_keys)
-		selected_columns = default_list
+		context = getTableQuery("drivers", defaultListKeys)
+		selectedColumns = defaultList
 	
-	del column_dict["driverId"]
-	data = {'column_dict': column_dict, 'headers': selected_columns, 'context': context}	
+	del columnDict["driverId"]
+	data = {'column_dict': columnDict, 'headers': selectedColumns, 'context': context}	
 	return render_template('drivers.html', context=data)
 	
 @driversBP.route('/<path:driverSlug>')
