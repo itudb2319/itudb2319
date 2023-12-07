@@ -7,7 +7,6 @@
 
 * {
     font-family: 'f1_font', sans-serif !important;
-    cursor: url('../img/formula-1.ico'), auto;
 }
 
 body {
@@ -156,6 +155,7 @@ input[type=text], input[type=password], input[type=email], textarea {
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease;
+    width: max-content;
 }
 
 .f1-button:hover {
@@ -176,14 +176,19 @@ input[type=text], input[type=password], input[type=email], textarea {
     color:white
 }
 
-.show_attributes {
+.filterButtonArea {
     float: right;
     margin: 0;
-    margin: 0 0 2em 0;
+    margin: 0 7em 2em 0;
     padding: 0;
     width: 5%;
+    display:flex;
 }
 
-.form_checkboxes {
+.filterButton {
+    margin:2px;
+}
+
+.formCheckboxes {
     display:flex;
 }
