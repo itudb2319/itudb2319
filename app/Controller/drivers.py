@@ -1,33 +1,19 @@
 from flask import request, render_template, Blueprint
-from ..Modal.query import getTableQuery
-from app.Controller.controllerShow import makeShow
+from ..Modal.drivers import columnDict, defaultList, defaultListKeys, getDrivers
+from app.Controller.controllerFilter import makeFilter
 driversBP = Blueprint('drivers', __name__, url_prefix='/drivers')
 
 @driversBP.route('/', methods=['GET', 'POST'])
 def drivers():
-	columnDict = {
-			"driverId": "ID",
-			"forename": "Name",
-			"surname": "Surname",
-			"nationality": "Nationality",
-			"number": "Number",
-			"driverRef": "Reference", 
-			"code": "Code",
-			"dob": "Date of Birth"
-			}
-		
-	defaultList = ["ID", "Name", "Surname", "Nationality", "Number"]
-	defaultListKeys = ["driverId", "forename", "surname", "nationality", "number"]
-
 	if request.method == "POST":
-		selectedColumns, context = makeShow("driverId", request.form, defaultList, "drivers", defaultListKeys, **columnDict)
+		selectedColumns, context, orderBy = makeFilter("driverId", getDrivers, request.form, defaultList, "drivers", defaultListKeys, **columnDict)
 
 	elif request.method == "GET":
-		context = getTableQuery("drivers", defaultListKeys)
+		context = getDrivers(defaultListKeys)
 		selectedColumns = defaultList
+		orderBy = "driverId"
 	
-	del columnDict["driverId"]
-	data = {'column_dict': columnDict, 'headers': selectedColumns, 'context': context}	
+	data = {'columnDict': columnDict, 'headers': selectedColumns, 'context': context, 'orderBy': orderBy}	
 	return render_template('drivers.html', context=data)
 	
 @driversBP.route('/<path:driverSlug>')
