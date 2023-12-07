@@ -1,0 +1,17 @@
+<div class="show_attributes">
+    <button onclick="toggleDropdown()" class="f1-button">Show</button>
+    <div class="dropdown-content" id="dropdownContent">
+        <form method="POST" action={{action}}>
+            {% for key in checkbox_dict.keys(): %}
+            <div class="form_checkboxes">
+                <label for={{key}} class="checkbox_label">{{checkbox_dict[key]}}</label>
+                <input type="checkbox" class="checkbox_checkbox" name={{key}} id="formShow" value="on">
+            </div>
+            <br>
+            {% endfor %}
+            <br>
+            <br>
+            <input type="submit" value="Apply" class="f1-button">
+        </form>
+    </div>
+</div>
