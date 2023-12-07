@@ -23,7 +23,9 @@
 <h1>Drivers</h1>
 
 {% if context['context'] %}
-{% set checkbox_dict=context['column_dict'] %}
+{% set checkboxDict=context['columnDict'] %}
+{% set headers=context['headers'] %}
+{% set orderBy=context['orderBy'] %}
 {% set action="/drivers"%}
 {% include 'misc/button.html' %}
 

@@ -25,7 +25,9 @@
 <h1>Circuits</h1>
 
 {% if context['context'] %}
-{% set checkbox_dict=context['column_dict'] %}
+{% set checkboxDict=context['columnDict'] %}
+{% set headers=context['headers'] %}
+{% set orderBy=context['orderBy'] %}
 {% set action="/circuits"%}
 {% include 'misc/button.html' %}
 

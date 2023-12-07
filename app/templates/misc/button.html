@@ -1,17 +1,36 @@
-<div class="show_attributes">
-    <button onclick="toggleDropdown()" class="f1-button">Show</button>
-    <div class="dropdown-content" id="dropdownContent">
-        <form method="POST" action={{action}}>
-            {% for key in checkbox_dict.keys(): %}
-            <div class="form_checkboxes">
-                <label for={{key}} class="checkbox_label">{{checkbox_dict[key]}}</label>
-                <input type="checkbox" class="checkbox_checkbox" name={{key}} id="formShow" value="on">
-            </div>
-            <br>
-            {% endfor %}
-            <br>
-            <br>
-            <input type="submit" value="Apply" class="f1-button">
-        </form>
+<div class="filterButtonArea">
+    <div class="filterButton">
+        <button onclick="toggleDropdownShow()" class="f1-button">Show</button>
+        <div class="dropdown-content" id="dropdownContentShow">
+            <form method="POST" id="showForm">
+                {% for key in checkboxDict.keys(): %}
+                <div class="formCheckboxes">
+                    <label for={{key}} class="checkboxLabel">{{checkboxDict[key]}}</label>
+                    <input type="checkbox" class="checkboxCheckbox" name={{key}} id={{key}} value="show" {% if checkboxDict[key] in headers %}checked{% endif %}>
+                </div>
+                <br>
+                {% endfor %}
+                <br>
+                <br>
+                <input type="button" class="f1-button" onclick="combineAndSendForms(action)" value="Apply">
+            </form>
+        </div>
+    </div>
+    <div class="filterButton">
+        <button onclick="toggleDropdownOrderBy()" class="f1-button">Order By</button>
+        <div class="dropdown-content" id="dropdownContentOrderBy">
+            <form method="POST" id="orderByForm">
+                {% for key in checkboxDict.keys(): %}
+                <div class="formCheckboxes">
+                    <label for={{key}} class="checkboxLabel">{{checkboxDict[key]}}</label>
+                    <input type="radio" class="checkboxCheckbox" name="orderBy" id={{key}} value={{key}} {% if key in orderBy %}checked{% endif %}>
+                </div>
+                <br>
+                {% endfor %}
+                <br>
+                <br>
+                <input type="button" class="f1-button" onclick="combineAndSendForms(action)" value="Apply">
+            </form>
+        </div>
     </div>
 </div>
