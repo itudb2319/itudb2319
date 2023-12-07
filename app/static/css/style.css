@@ -33,6 +33,7 @@ h1 {
     padding: 5px;
     transition: background-color 0.3s ease;
     border-radius: 5px;
+    float: right;
 }
 
 #topnav {
@@ -83,10 +84,6 @@ h1 {
 #contact {
     text-decoration: none;
     color: white;
-}
-
-#user_panel {
-    float: right;
 }
 
 /*Table Style*/
