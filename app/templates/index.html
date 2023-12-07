@@ -12,7 +12,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const contextData = JSON.parse('{{ context | tojson | safe }}');
             const table = createTable(contextData);
-            const container = document.getElementById("showTable");
+            const container = document.getElementById("show-table");
             container.appendChild(table);
         });
     </script>
@@ -20,5 +20,4 @@
 
 {% block content %}
     <h1>Welcome to OnlyF1s!</h1>
-    <h3 style="text-align:center">Last Race: Lap Times</h3>
 {% endblock %}

@@ -30,7 +30,7 @@
     {% if context %}
         <script>
             function addTable() {
-                const container = document.getElementById("showTable");
+                const container = document.getElementById("show-table");
                 const contextData = JSON.parse('{{ context | tojson | safe }}');
                 const table = createTable(contextData);
                 table.caption.textContent = 'Circuit: {{ circuitName }}, Year: {{ raceYear }}, # Responses: {{ respNumber }}'

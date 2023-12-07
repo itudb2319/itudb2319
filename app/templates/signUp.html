@@ -11,7 +11,7 @@
 
 {% block content %}
     <h1>Log In</h1>
-    <form action="{{ url_for('auth.login') }}" method="post" class="center">
+    <form action="{{ url_for('auth.signUp') }}" method="post" class="center">
         <label for="username">Username: </label>
         <input type="text" id="username" name="username" required placeholder="username">
         <br>
