@@ -16,3 +16,11 @@ Week 9:
   - I have changed the code structure. It is compatible with MVC pattern now.
   - I have performed some minor changed on a few file and classes i.e Database class, app.py.
   - I have configured the dockerfile and docker-compsose.yaml files
+
+Week 10:
+  - I have added a new table keeps the other tables (lkp_tables)
+  - I have added admin Blueprint and one of the its page bulkCUD (Create Update Delete via uploading a csv file based on a name convention) with its template
+  - I have modified the schema for lkp_tables and cascade delete/update operations
+  - I have added 3 new methods to the database.py for refreshing the database, execute bulk queries with transaction and execute queries based on the csv file
+  - I have edited the docker based files (healthcare conditions, uploaded folder etc.)
+  - I have added makefile to make easier managing docker based components
