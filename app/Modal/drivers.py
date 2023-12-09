@@ -24,7 +24,7 @@ def getDrivers(columnList, orderBy, search):
                 for item in columnDict:
                     if item != "number" and item != "dob":
                         query += f" {item} = '{search}' OR {item} ILIKE '%{search}%' OR"
-                    elif (item == "number" or item == "dob") and search.isdigit():
+                    elif item == "number" and search.isdigit():
                         query += f" {item} = {search} OR"
                 query = query[:-3]
         elif len(search.split()) == 2:
