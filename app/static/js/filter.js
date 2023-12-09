@@ -1,35 +1,26 @@
-function toggleDropdownShow() {
-    var dropdownActual = document.getElementById("dropdownContentShow");
-    var dropdownOther = document.getElementById("dropdownContentOrderBy");
+function toggleDropdownButton(actual, other1, other2) {
+    var dropdownActual = document.getElementById(actual);
+    var dropdownOther1 = document.getElementById(other1);
+    var dropdownOther2 = document.getElementById(other2);
     if (dropdownActual.style.display === "block") {
         dropdownActual.style.display = "none";
     } else {
-        if (dropdownOther.style.display == "block") {
-            dropdownOther.style.display = "none";
+        if (dropdownOther1.style.display == "block" || dropdownOther2.style.display == "block") {
+            dropdownOther1.style.display = "none";
+            dropdownOther2.style.display = "none";
         }
         dropdownActual.style.display = "block";
     }
 }
 
-function toggleDropdownOrderBy() {
-    var dropdownOther = document.getElementById("dropdownContentShow");
-    var dropdownActual = document.getElementById("dropdownContentOrderBy");
-    if (dropdownActual.style.display === "block") {
-        dropdownActual.style.display = "none";
-    } else {
-        if (dropdownOther.style.display == "block") {
-            dropdownOther.style.display = "none";
+function combineAndSendForms(action, ...formNames) {
+    var showFormData = new FormData(document.getElementById(formNames[0]));
+
+    for (var i = 1; i < formNames.length; i++) {
+        var formData = new FormData(document.getElementById(formNames[i]));
+        for (var pair of formData.entries()) {
+            showFormData.append(pair[0], pair[1]);
         }
-        dropdownActual.style.display = "block";
-    }
-}
-
-function combineAndSendForms(action) {
-    var showFormData = new FormData(document.getElementById('showForm'));
-    var orderByFormData = new FormData(document.getElementById('orderByForm'));
-
-    for (var pair of orderByFormData.entries()) {
-        showFormData.append(pair[0], pair[1]);
     }
 
     var combinedForm = document.createElement('form');
@@ -47,3 +38,16 @@ function combineAndSendForms(action) {
     document.body.appendChild(combinedForm);
     combinedForm.submit();
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    var searchBox = document.getElementById('searchBoxArea');
+    if (searchBox) {
+        searchBox.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                action = document.getElementById('searchBoxForm').getAttribute('action')
+                combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm', 'filterForm')
+            }
+        });
+    }
+});

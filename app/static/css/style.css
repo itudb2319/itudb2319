@@ -171,24 +171,42 @@ input[type=text], input[type=password], input[type=email], textarea {
     background-color: #333;
     width: max-content;
 }
-.dropdown-content label {
-    
+.dropdown-content label {    
     color:white
 }
 
 .filterButtonArea {
-    float: right;
-    margin: 0;
-    margin: 0 7em 2em 0;
-    padding: 0;
-    width: 5%;
     display:flex;
-}
-
-.filterButton {
-    margin:2px;
 }
 
 .formCheckboxes {
     display:flex;
 }
+
+.filterButton {
+    margin: 0 1em 0 1em;
+    height: 100%;
+}
+
+.filterArea {
+    display:flex;
+    float: right;
+    margin-bottom: 3em;
+    padding:0;
+}
+
+.searchBox {
+    width: fit-content;
+    float:right;
+    margin: 0 3em 0 0 !important;
+    padding: 0 !important;
+}
+
+.searchBoxForm {
+    width: fit-content;
+}
+
+.searchBoxArea {
+    width:25em !important;
+}
+
