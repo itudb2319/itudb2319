@@ -22,16 +22,17 @@
 
 <h1>Drivers</h1>
 
-{% if context['context'] %}
 {% set checkboxDict=context['columnDict'] %}
 {% set headers=context['headers'] %}
 {% set orderBy=context['orderBy'] %}
 {% set action="/drivers"%}
 {% include 'misc/button.html' %}
 
+{% if context['context'] %}
 <table>
     <thead>
         <tr>
+            <th>#</th>
             {% for header in context['headers'] %}
             <th>{{header}}</th>
             {% endfor %}
@@ -41,6 +42,7 @@
         {% for driver in context['context'] %}
         <tr class="clickable-row" data-href="{{ url_for('drivers.driverDetails', driverSlug=driver[0]) }}">
         <tr>
+            <td>{{ loop.index }}</td>
             {% for d in range(driver|length) %}
             <td>{{ driver[d]}}</td>
             {% endfor %}

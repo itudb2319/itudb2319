@@ -24,15 +24,16 @@
 
 <h1>Circuits</h1>
 
-{% if context['context'] %}
 {% set checkboxDict=context['columnDict'] %}
 {% set headers=context['headers'] %}
 {% set orderBy=context['orderBy'] %}
 {% set action="/circuits"%}
 {% include 'misc/button.html' %}
 
+{% if context['context'] %}
 <table>
     <thead>
+        <th>#</th>
         {% for header in context['headers'] %}
         <th>{{header}}</th>
         {% endfor %}
@@ -42,6 +43,7 @@
         {% for circuit in context['context'] %}
         <tr class="clickable-row" data-href="{{ url_for('circuits.circuitDetails', circuitName=circuit[0]) }}">
         <tr>
+            <td>{{ loop.index }}</td>
             {% for c in range(circuit|length) %}
             <td>{{ circuit[c]}}</td>
             {% endfor %}
