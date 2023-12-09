@@ -4,8 +4,7 @@ from os.path import join
 from .database import db
 from os.path import join
 
-columnDict = {"circuitId": "ID",
-        "name": "Name",
+columnDict = {"name": "Name",
         "location": "Location",
         "country": "Country",
         "circuitRef": "Reference", 
@@ -14,13 +13,22 @@ columnDict = {"circuitId": "ID",
         "alt": "Altitude"
         }
 
-defaultList = ["ID", "Name", "Location", "Country", "Reference"]
-defaultListKeys = ["circuitId", "name", "location", "country", "circuitRef"]
+defaultList = ["Name", "Location", "Country", "Reference"]
+defaultListKeys = ["name", "location", "country", "circuitRef"]
 
-def getCircuits(columnList, orderBy = ""):
+def getCircuits(columnList, orderBy, search):
     columns = ', '.join(map(str, columnList))
+    query = f"SELECT {columns} FROM circuits"
+
+    if search != "":
+        query += " WHERE"
+        for item in columnList:
+            query += f" {item} = '{search}' OR {item} ILIKE '%{search}%' OR"
+        query = query[:-3]
+
     if orderBy != "":
-        data = db.executeQuery(f"SELECT {columns} FROM circuits ORDER BY {orderBy}")
-    else:
-        data = db.executeQuery(f"SELECT {columns} FROM circuits")
+        query +=  f" ORDER BY {orderBy}"
+    
+    print(query)
+    data = db.executeQuery(query)
     return data

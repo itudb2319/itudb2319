@@ -2,7 +2,6 @@ from .database import db
 from os.path import join
 
 columnDict = {
-            "driverId": "ID",
             "forename": "Name",
             "surname": "Surname",
             "nationality": "Nationality",
@@ -12,13 +11,30 @@ columnDict = {
             "dob": "Date of Birth"
             }
     
-defaultList = ["ID", "Name", "Surname", "Nationality", "Number"]
-defaultListKeys = ["driverId", "forename", "surname", "nationality", "number"]
+defaultList = ["Name", "Surname", "Nationality", "Number"]
+defaultListKeys = ["forename", "surname", "nationality", "number"]
 
-def getDrivers(columnList, orderBy = ""):
+def getDrivers(columnList, orderBy, search):
     columns = ', '.join(map(str, columnList))
+
+    query = f"SELECT {columns} FROM drivers"
+    if search != "":
+        query += " WHERE"
+        if len(search.split()) == 1:
+                for item in columnDict:
+                    if item != "number" and item != "dob":
+                        query += f" {item} = '{search}' OR {item} ILIKE '%{search}%' OR"
+                    elif (item == "number" or item == "dob") and search.isdigit():
+                        query += f" {item} = {search} OR"
+                query = query[:-3]
+        elif len(search.split()) == 2:
+            name = search.split()[0]
+            surname = search.split()[1]
+            query += f" (forename = '{name}' OR forename ILIKE '%{name}%') AND (surname = '{surname}' OR surname ILIKE '%{surname}%')"
+
     if orderBy != "":
-        data = db.executeQuery(f"SELECT {columns} FROM drivers ORDER BY {orderBy}")
-    else:
-        data = db.executeQuery(f"SELECT {columns} FROM drivers")
+        query +=  f" ORDER BY {orderBy}"
+    
+    print(query)
+    data = db.executeQuery(query)
     return data
