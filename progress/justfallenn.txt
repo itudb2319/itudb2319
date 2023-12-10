@@ -21,3 +21,8 @@ WEEK 8:
 WEEK 9:
 - I updated the app directory and general order of the flask app using blueprints.
 - I updated templates of login, signup, and contact.
+
+WEEK 10:
+- I added rankings and constructors pages.
+- The rankings page, gives different kinds of query results like total wins of the drivers.
+- I updated css file and added list style.
