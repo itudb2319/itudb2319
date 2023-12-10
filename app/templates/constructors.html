@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% block title %}Constructors{% endblock %}
+{% block content %}
+{% block head %}
+    {{ super() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById("constructors").classList.add('active');
+        });
+    </script>
+{% endblock %}
+
+<h1>Constructors</h1>
+
+{% if context['context'] %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for constructor in context['context'] %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ constructor[0] }}</td>
+                    <td>{{ constructor[1] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No constructor found.</p>
+{% endif %}
+{% endblock %}

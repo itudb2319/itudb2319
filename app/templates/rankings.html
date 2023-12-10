@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block title %}Rankings{% endblock %}
+{% block content %}
+{% block head %}
+    {{ super() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById("rankings").classList.add('active');
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var listItems = document.querySelectorAll(".clickable-list-item");
+            listItems.forEach(function (item) {
+                item.addEventListener("click", function () {
+                    window.location = item.dataset.href;
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+<h1>Rankings</h1>
+
+<ul>
+    <li class="clickable-list-item" data-href="{{ url_for('rankings.rankingDetails', rankingName='totalEntries') }}">Total Entries</li>
+    <li class="clickable-list-item" data-href="{{ url_for('rankings.rankingDetails', rankingName='youngestEntries') }}">Youngest Entries</li>
+    <li class="clickable-list-item" data-href="{{ url_for('rankings.rankingDetails', rankingName='oldestEntries') }}">Oldest Entries</li>
+    <li class="clickable-list-item" data-href="{{ url_for('rankings.rankingDetails', rankingName='youngestFinish') }}">Youngest Finish</li>
+    <li class="clickable-list-item" data-href="{{ url_for('rankings.rankingDetails', rankingName='oldestFinish') }}">Oldest Finish</li>
+    <li class="clickable-list-item" data-href="{{ url_for('rankings.rankingDetails', rankingName='totalWins') }}">Total Wins</li>
+    <li class="clickable-list-item" data-href="{{ url_for('rankings.rankingDetails', rankingName='perWins') }}">Percentage Wins</li>
+    <li class="clickable-list-item" data-href="{{ url_for('rankings.rankingDetails', rankingName='youngestWins') }}">Youngest Wins</li>
+    <li class="clickable-list-item" data-href="{{ url_for('rankings.rankingDetails', rankingName='oldestWins') }}">Oldest Wins</li>
+</ul>
+
+{% endblock %}
