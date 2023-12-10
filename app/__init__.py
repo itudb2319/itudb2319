@@ -9,6 +9,8 @@ from .Controller.raceResults import raceResultsBP
 from .Controller.seasons import seasonsBP
 from .Controller.auth import authBP
 from .Controller.admin import adminBP
+from .Controller.rankings import rankingsBP
+from .Controller.constructors import constructorsBP
 
 from app.Modal.database import db
 
@@ -25,6 +27,8 @@ def create_app():
     app.register_blueprint(raceResultsBP)
     app.register_blueprint(contactBP)
     app.register_blueprint(adminBP)
+    app.register_blueprint(rankingsBP)
+    app.register_blueprint(constructorsBP)
 
     db.initDb()
 
