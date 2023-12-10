@@ -210,3 +210,20 @@ input[type=text], input[type=password], input[type=email], textarea {
     width:25em !important;
 }
 
+/* List Style */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+li:hover {
+    background-color: #ddd;
+}
