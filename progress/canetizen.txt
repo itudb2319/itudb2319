@@ -14,3 +14,5 @@
 03 Dec 2023 (Week 9):
 	- I implemented a filter system for drivers section, changed style.css, drivers.py and other related files.
 	
+12 Dec 2023 (Week 10):
+	- I improved filter system and implemented search bar for drivers and circuits sections. I changed model and controller files of both section.
