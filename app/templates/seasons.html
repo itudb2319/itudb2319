@@ -22,7 +22,7 @@
     {% if context %}
         <script>
             function addTable() {
-                const container = document.getElementById("show-table");
+                const container = document.getElementById("showTable");
                 const contextData = JSON.parse('{{ context | tojson | safe }}');
                 const table = createTable(contextData);
                 table.caption.textContent = 'Year: {{ year }}, # Responses: {{ respNumber }}'
