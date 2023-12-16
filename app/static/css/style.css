@@ -114,6 +114,10 @@ tr:hover {
 
 /* Form Style */
 
+input[type=number] {
+    appearance: textfield;
+}
+
 .take_info_form {
     width: 30%;
     background-color: #333;

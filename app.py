@@ -1,5 +1,6 @@
-from flask import render_template
+from flask import render_template, request
 from app.Modal.raceResults import getLastRaceBestLaps
+from app.Modal.getStandinds import getSeasonStandings
 from app import create_app
 
 app = create_app()

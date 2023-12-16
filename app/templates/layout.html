@@ -21,8 +21,13 @@
             <a id='gameBlink' href="{{ url_for('gameBlink.gameBlink') }}">Blink Game</a>
             <a id='raceResults' href="{{ url_for('raceResults.raceResults') }}">Race Results</a>
             <div id="userPanel">
-                <a id='login' href="{{ url_for('auth.login') }}">Login</a>
-                <a id='register' href="{{ url_for('auth.register') }}">Sign Up</a>
+                {% if session["userId"] is defined %}
+                    <a id='userInfo' href="{{ url_for('auth.user') }}" >{{ session["userName"] }}</a>
+                    <a id='logout' href="{{ url_for('auth.logout') }}">Log Out</a>
+                {% else %}
+                    <a id='login' href="{{ url_for('auth.login') }}">Login</a>
+                    <a id='register' href="{{ url_for('auth.register') }}">Sign Up</a>
+                {% endif %}
             </div>
         </div>
         <section id="layoutSection">

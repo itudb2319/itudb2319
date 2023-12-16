@@ -1,7 +1,7 @@
 from app.Modal.database import db
 from psycopg2 import IntegrityError
 
-def checkUser(username, password):
+def getUser(username, password):
     user = db.getData('login.sql', {'username': username, 'psw': password})
     print(user)
     if len(user) == 0:

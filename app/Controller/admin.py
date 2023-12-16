@@ -10,12 +10,14 @@ def cudWithCSVFile():
     if request.method == 'GET':
         return render_template('adminCUD.html')
     else:
-        if 'file' not in request.files:
+        print(request.files.items())
+        if request.files.get('file') is None:
             return 'No file part in the request.'
         file = request.files['file']
         
         if file.filename == '':
             flash('No file submitted.')
+            return 'First choose a file!'
         
         if file:
             filename = secure_filename(file.filename)
