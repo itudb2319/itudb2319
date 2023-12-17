@@ -6,13 +6,7 @@ columnDict = {
             "surname": "Surname",
             "nationality": "Nationality",
             "number": "Number",
-            "driverRef": "Reference", 
-            "code": "Code",
-            "dob": "Date of Birth"
             }
-    
-defaultList = ["Name", "Surname", "Nationality", "Number"]
-defaultListKeys = ["forename", "surname", "nationality", "number"]
 
 def getDrivers(columnList, orderBy, search):
     columns = ', '.join(map(str, columnList))

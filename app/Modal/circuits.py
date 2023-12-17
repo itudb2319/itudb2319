@@ -8,13 +8,7 @@ columnDict = {"name": "Name",
         "location": "Location",
         "country": "Country",
         "circuitRef": "Reference", 
-        "lat": "Latitude",
-        "lng": "Longitude",
-        "alt": "Altitude"
         }
-
-defaultList = ["Name", "Location", "Country", "Reference"]
-defaultListKeys = ["name", "location", "country", "circuitRef"]
 
 def getCircuits(columnList, orderBy, search):
     columns = ', '.join(map(str, columnList))
