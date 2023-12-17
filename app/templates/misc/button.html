@@ -5,28 +5,10 @@
             <input type="text" placeholder="type" class="searchBoxArea" name="search" id="searchBoxArea">
         </form>
     </div>
-    <div class="filterButton">
-        <button onclick="toggleDropdownButton('dropdownContentFilter', 'dropdownContentOrderBy', 'dropdownContentShow')"
-            class="f1-button">Filter</button>
-        <div class="dropdown-content" id="dropdownContentFilter">
-            <form method="POST" id="filterForm">
-                {% for key in checkboxDict.keys(): %}
-                <div class="formCheckboxes">
-                </div>
-                <br>
-                {% endfor %}
-                <br>
-                <br>
-                <input type="button" class="f1-button"
-                    onclick="combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm', 'filterForm')"
-                    value="Apply">
-            </form>
-        </div>
-    </div>
     <div class="filterButtonArea">
         <div class="filterButton">
             <button
-                onclick="toggleDropdownButton('dropdownContentShow', 'dropdownContentFilter', 'dropdownContentOrderBy')"
+                onclick="toggleDropdownButton('dropdownContentShow', 'dropdownContentOrderBy')"
                 class="f1-button">Show</button>
             <div class="dropdown-content" id="dropdownContentShow">
                 <form method="POST" id="showForm">
@@ -41,14 +23,14 @@
                     <br>
                     <br>
                     <input type="button" class="f1-button"
-                        onclick="combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm', 'filterForm')"
+                        onclick="combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm')"
                         value="Apply">
                 </form>
             </div>
         </div>
         <div class="filterButton">
             <button
-                onclick="toggleDropdownButton('dropdownContentOrderBy', 'dropdownContentFilter', 'dropdownContentShow')"
+                onclick="toggleDropdownButton('dropdownContentOrderBy', 'dropdownContentShow')"
                 class="f1-button">Order By</button>
             <div class="dropdown-content" id="dropdownContentOrderBy">
                 <form method="POST" id="orderByForm">
@@ -63,7 +45,7 @@
                     <br>
                     <br>
                     <input type="button" class="f1-button"
-                        onclick="combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm', 'filterForm')"
+                        onclick="combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm')"
                         value="Apply">
                 </form>
             </div>

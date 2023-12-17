@@ -1,23 +1,40 @@
 {% extends "layout.html" %}
 {% block title %}OnlyF1s{% endblock %}
 {% block head %}
-    {{ super() }}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('home').classList.add('active');
-        });
-    </script>
+{{ super() }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('home').classList.add('active');
+    });
+</script>
 
-    <script defer>
-        document.addEventListener('DOMContentLoaded', function() {
-            const contextData = JSON.parse('{{ context | tojson | safe }}');
-            const table = createTable(contextData);
-            const container = document.getElementById("showTable");
-            container.appendChild(table);
-        });
-    </script>
+<script defer>
+    document.addEventListener('DOMContentLoaded', function () {
+        const contextData = JSON.parse('{{ context | tojson | safe }}');
+        const table = createTable(contextData);
+        const container = document.getElementById("showTable");
+        container.appendChild(table);
+    });
+</script>
 {% endblock %}
 
 {% block content %}
-    <h1>Welcome to OnlyF1s!</h1>
+<h1>Welcome to OnlyF1s!</h1>
+<br>
+<br>
+<div class="indexDescription">
+    <p>OnlyF1s is a fandom F1 website created for the ITU BLG317E course, containing data from the years 1950 to 2023.</p>
+    <p>You can access driver, constructor, circuit, and season information from the top menu.</p>
+    <p>Additionally, you can access the mini quizzes we've prepared about F1 from the 'Quizzes' section and test your
+        knowledge of F1.</p>
+    <p>Furthermore, you can have fun and measure your reflex skills with the 'Blink Test' we've created.</p>
+    <p>Lastly, you can access special rankings created for you through the 'Rankings' section.</p>
+    <p>For your feedback and suggestions, you can reach us through the 'Contact Us' page located in the footer.</p>
+    <br>
+    <br>
+    <a href="https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020?select=lap_times.csv">To view the dataset we've utilized, click here.</a>
+    <br>
+    <br>
+    <p><span style="font-weight: bold;">Developers: </span>Emircan Erol, Mustafa Can Çalışkan, Yusuf Emir Sezgin, Yusuf Şahin</p>
+</div>
 {% endblock %}
