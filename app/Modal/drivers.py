@@ -37,3 +37,16 @@ def getDrivers(columnList, orderBy, search, page):
     print(query)
     data = db.executeQuery(query)
     return data, length
+
+def getDriverPersonal(params):
+    with open(join(db.QPATH, 'personalDetails.sql'), 'r') as f:
+        query = f.read()
+        data = db.executeQuery(query, params)
+    return data
+
+def getDriverCareer(params):
+    with open(join(db.QPATH, 'careerDetails.sql'), 'r') as f:
+        query = f.read()
+        data = db.executeQuery(query, params)
+    return data
+
