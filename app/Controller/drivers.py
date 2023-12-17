@@ -17,6 +17,16 @@ def drivers():
 	data = {'columnDict': columnDict, 'headers': selectedColumns, 'context': context, 'orderBy': orderBy}	
 	return render_template('drivers.html', context=data)
 	
-@driversBP.route('/<path:driverSlug>')
-def driverDetails(driverSlug):
-	return render_template('driver.html', driverInfo=driverSlug)
+@driversBP.route('/<path:driverName>_<path:driverSurname>')
+def driverDetails(driverName, driverSurname):
+	params = {'sDriverName': driverName, 'sDriverSurname': driverSurname}
+
+	careerInfo = getDriverCareer(params)
+	personalInfo = getDriverPersonal(params)
+	
+	headerCareer = ['Race', 'Point', 'Wins', 'Podiums', 'DNFs']
+	headerPersonal = ['Name', 'Surname', 'Seasons', 'Date Of Birth', 'Nationality', 'Number']
+
+	data = {'personal': personalInfo, 'career': careerInfo, 'headerP': headerPersonal, 'headerC': headerCareer}
+	return render_template('driver.html', context=data)
+
