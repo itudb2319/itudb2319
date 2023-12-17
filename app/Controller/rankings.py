@@ -4,7 +4,7 @@ from ..Modal.rankings import getRankings, getHeadersForRanking
 rankingsBP = Blueprint('rankings', __name__, url_prefix='/rankings')
 	
 @rankingsBP.route('/', methods = ['GET', 'POST'])
-def ratings():
+def rankings():
 	return render_template('rankings.html')
 
 @rankingsBP.route('/<path:rankingName>')
