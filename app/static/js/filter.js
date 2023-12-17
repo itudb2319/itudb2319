@@ -1,13 +1,11 @@
 function toggleDropdownButton(actual, other1, other2) {
     var dropdownActual = document.getElementById(actual);
     var dropdownOther1 = document.getElementById(other1);
-    var dropdownOther2 = document.getElementById(other2);
     if (dropdownActual.style.display === "block") {
         dropdownActual.style.display = "none";
     } else {
-        if (dropdownOther1.style.display == "block" || dropdownOther2.style.display == "block") {
+        if (dropdownOther1.style.display == "block") {
             dropdownOther1.style.display = "none";
-            dropdownOther2.style.display = "none";
         }
         dropdownActual.style.display = "block";
     }
@@ -46,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 action = document.getElementById('searchBoxForm').getAttribute('action')
-                combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm', 'filterForm')
+                combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm')
             }
         });
     }
