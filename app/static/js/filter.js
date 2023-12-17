@@ -44,8 +44,20 @@ document.addEventListener('DOMContentLoaded', function () {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 action = document.getElementById('searchBoxForm').getAttribute('action')
-                combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm')
+                combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm', 'pagebarForm')
             }
         });
     }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var radios = document.querySelectorAll('.pagebarForm input[type="radio"]');
+    radios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            if (this.checked) {
+                action = document.getElementById('pagebarForm').getAttribute('action')
+                combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm', 'pagebarForm')
+            }
+        });
+    });
 });

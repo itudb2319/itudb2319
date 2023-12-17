@@ -26,6 +26,10 @@
 {% set headers=context['headers'] %}
 {% set orderBy=context['orderBy'] %}
 {% set action="/drivers"%}
+{% set length = context['length'] %}
+{% set currentPageNumber = context['currentPageNumber'] %}
+{% set lastSearched = context['lastSearched'] %}
+
 {% include 'misc/button.html' %}
 
 {% if context['context'] %}
@@ -40,8 +44,9 @@
     </thead>
     <tbody>
         {% for driver in context['context'] %}
-        <tr class="clickable-row" data-href="{{ url_for('drivers.driverDetails', driverName=driver[0], driverSurname=driver[1]) }}">
-            <td>{{ loop.index }}</td>
+        <tr class="clickable-row" data-href="{{ url_for('drivers.driverDetails', driverSlug=driver[0]) }}">
+        <tr>
+            <td>{{ loop.index + (currentPageNumber|int - 1) * 20}}</td>
             {% for d in range(driver|length) %}
             <td>{{ driver[d]}}</td>
             {% endfor %}
@@ -49,6 +54,8 @@
         {% endfor %}
     </tbody>
 </table>
+<br>
+{% include 'misc/pagebar.html' %}
 {% else %}
 <p>No drivers found.</p>
 {% endif %}

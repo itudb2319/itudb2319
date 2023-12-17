@@ -87,7 +87,7 @@ h1 {
 
 .indexDescription {
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     text-decoration: none;
 }
 
@@ -242,4 +242,11 @@ li {
 
 li:hover {
     background-color: #ddd;
+}
+
+/* Page Style */
+
+.pageRadio {
+    display:inline;
+    margin-right: 2em;
 }

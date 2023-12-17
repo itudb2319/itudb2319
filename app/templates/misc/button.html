@@ -1,8 +1,9 @@
 <div class="filterArea">
     <div class="searchBox">
-        <form method="POST" id="searchBoxForm" , action={{action}}>
+        <form method="POST" id="searchBoxForm" action={{action}}>
             <label for="search">Search</label>
-            <input type="text" placeholder="type" class="searchBoxArea" name="search" id="searchBoxArea">
+            <input type="text" placeholder="type" class="searchBoxArea" name="search" id="searchBoxArea" {% if
+                lastSearched != "" %} value=lastSearched {% endif %}>
         </form>
     </div>
     <div class="filterButtonArea">
@@ -23,7 +24,7 @@
                     <br>
                     <br>
                     <input type="button" class="f1-button"
-                        onclick="combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm')"
+                        onclick="combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm', 'pagebarForm')"
                         value="Apply">
                 </form>
             </div>
@@ -45,7 +46,7 @@
                     <br>
                     <br>
                     <input type="button" class="f1-button"
-                        onclick="combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm')"
+                        onclick="combineAndSendForms(action, 'showForm', 'orderByForm', 'searchBoxForm', 'pagebarForm')"
                         value="Apply">
                 </form>
             </div>

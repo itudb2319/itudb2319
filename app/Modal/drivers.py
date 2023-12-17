@@ -8,7 +8,7 @@ columnDict = {
             "number": "Number",
             }
 
-def getDrivers(columnList, orderBy, search):
+def getDrivers(columnList, orderBy, search, page):
     columns = ', '.join(map(str, columnList))
 
     query = f"SELECT {columns} FROM drivers"
@@ -28,20 +28,12 @@ def getDrivers(columnList, orderBy, search):
 
     if orderBy != "":
         query +=  f" ORDER BY {orderBy}"
-    
+    data = db.executeQuery(query)
+    length = len(data)
+    if (search != ""):
+         query += f" LIMIT 20"
+    else:
+        query += f" LIMIT 20 OFFSET {(int(page) - 1) * 20}"
     print(query)
     data = db.executeQuery(query)
-    return data
-
-
-def getDriverPersonal(params):
-    with open(join(db.QPATH, 'personalDetails.sql'), 'r') as f:
-        query = f.read()
-        data = db.executeQuery(query, params)
-    return data
-
-def getDriverCareer(params):
-    with open(join(db.QPATH, 'careerDetails.sql'), 'r') as f:
-        query = f.read()
-        data = db.executeQuery(query, params)
-    return data
+    return data, length

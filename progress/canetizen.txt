@@ -16,3 +16,6 @@
 	
 12 Dec 2023 (Week 10):
 	- I improved filter system and implemented search bar for drivers and circuits sections. I changed model and controller files of both section.
+	
+17 Dec 2023 (Week 11):
+	- I changed filter system, and I implemented pagination system for drivers. It will be added to other sections.
