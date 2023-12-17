@@ -26,3 +26,6 @@ WEEK 10:
 - I added rankings and constructors pages.
 - The rankings page, gives different kinds of query results like total wins of the drivers.
 - I updated css file and added list style.
+
+WEEk 11:
+- I added driver page which gives the spesific driver details when clicked on a row in the drivers page.
