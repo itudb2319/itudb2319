@@ -44,8 +44,7 @@
     </thead>
     <tbody>
         {% for driver in context['context'] %}
-        <tr class="clickable-row" data-href="{{ url_for('drivers.driverDetails', driverSlug=driver[0]) }}">
-        <tr>
+        <tr class="clickable-row" data-href="{{ url_for('drivers.driverDetails', driverName=driver[0], driverSurname=driver[1]) }}">
             <td>{{ loop.index + (currentPageNumber|int - 1) * 20}}</td>
             {% for d in range(driver|length) %}
             <td>{{ driver[d]}}</td>
