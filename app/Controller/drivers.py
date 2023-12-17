@@ -1,5 +1,5 @@
 from flask import request, render_template, Blueprint
-from ..Modal.drivers import columnDict, getDrivers
+from ..Modal.drivers import columnDict, getDrivers, getDriverCareer, getDriverPersonal
 from app.Modal.filter import makeFilter
 driversBP = Blueprint('drivers', __name__, url_prefix='/drivers')
 
