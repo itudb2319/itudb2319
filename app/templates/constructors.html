@@ -8,6 +8,17 @@
             document.getElementById("constructors").classList.add('active');
         });
     </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var rows = document.querySelectorAll(".clickable-row");
+        rows.forEach(function (row) {
+            row.addEventListener("click", function () {
+                window.location = row.dataset.href;
+            });
+        });
+    });
+</script>
 {% endblock %}
 
 <h1>Constructors</h1>
@@ -19,14 +30,17 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Country</th>
+                <th>Total Points</th>
             </tr>
         </thead>
         <tbody>
             {% for constructor in context['context'] %}
+            <tr class="clickable-row" data-href="{{ url_for('constructors.constructorDetails', constructorId=constructor[3])}}
                 <tr>
                     <td>{{ loop.index }}</td>
                     <td>{{ constructor[0] }}</td>
                     <td>{{ constructor[1] }}</td>
+                    <td>{{ constructor[2] }}</td>
                 </tr>
             {% endfor %}
         </tbody>
