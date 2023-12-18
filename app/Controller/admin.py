@@ -1,5 +1,5 @@
 from flask import request, render_template, Blueprint, flash
-from ..Modal.database import db
+from ..Modal.admin import generateQuery
 from werkzeug.utils import secure_filename
 from os.path import join
 
@@ -22,7 +22,7 @@ def cudWithCSVFile():
         if file:
             filename = secure_filename(file.filename)
             file.save(join("/project/app/uploads", filename))
-            if db.generateQuery(filename) == -1:
+            if generateQuery(filename) == -1:
                 flash("The bulk CUD conventions have not been met!\nCheck the convention.")
             else:
                 return render_template('adminCUD.html')
