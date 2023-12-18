@@ -1,1 +1,1 @@
-INSERT INTO users (username, password) VALUES (%(username)s, %(psw)s);
+INSERT INTO users (username, psw, userRole) VALUES (%(username)s, %(psw)s, %(userRole)s);

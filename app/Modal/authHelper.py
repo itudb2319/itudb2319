@@ -8,13 +8,13 @@ def getUser(username, password):
         return None
     else: return user[0]
 
-def registerUser(username, password):
+def registerUser(username, password, role):
     error = None
     try:
         if db.cur is None or db.cur.closed: db.cur = db.conn.cursor()
         db.cur.execute(
-            "INSERT INTO users (username, password) VALUES (%s, %s)",
-            (username, password),
+            "INSERT INTO users (username, psw, userRole) VALUES (%s, %s, %s)",
+            (username, password, role),
         )
         db.conn.commit()
     except IntegrityError:

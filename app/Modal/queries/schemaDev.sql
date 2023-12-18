@@ -312,15 +312,28 @@ CREATE TABLE IF NOT EXISTS quiz (
 
 CREATE TABLE IF NOT EXISTS users(
 	userId INT GENERATED ALWAYS AS IDENTITY,
-	username VARCHAR(31),
-	profilePhoto VARCHAR(255),
+	username VARCHAR(31) UNIQUE,
+	profilePhoto VARCHAR(255) UNIQUE,
 	blinkScore DECIMAL,
-	email VARCHAR(255),
-	password VARCHAR(255),
+	email VARCHAR(255) UNIQUE,
+	psw VARCHAR(255),
 	salt VARCHAR(15),
 	quizScore INT,
+	userRole INT,
 
-	PRIMARY KEY(userId)
+	PRIMARY KEY(userId),
+	CONSTRAINT usernameEmailNotnull CHECK (
+		NOT (
+			( username IS NULL  OR  username = '' )
+			AND
+			( email IS NULL  OR  email = '' )
+		)
+	),
+	CONSTRAINT usersIntegrity CHECK (
+		quizScore > 0 AND
+		blinkScore > 0 AND
+		userRole = 0 OR userRole = 1
+	)
 );
 
 CREATE TABLE IF NOT EXISTS answers(

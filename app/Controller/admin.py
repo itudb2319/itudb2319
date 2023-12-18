@@ -2,10 +2,12 @@ from flask import request, render_template, Blueprint, flash
 from ..Modal.admin import generateQuery
 from werkzeug.utils import secure_filename
 from os.path import join
+from ..Controller.auth import isAdmin
 
 adminBP = Blueprint('admin', __name__, url_prefix='/admin')
 
 @adminBP.route('/bulkCUD', methods=['GET','POST'])
+@isAdmin
 def cudWithCSVFile():
     if request.method == 'GET':
         return render_template('adminCUD.html')

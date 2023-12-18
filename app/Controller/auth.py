@@ -24,6 +24,7 @@ def login():
             session['blinkscore'] = user[3]
             session['email'] = user[4]
             session['quizscore'] = user[7]
+            session['role'] = user[8] # 1 is for admin 0 is for user
             return redirect(url_for('index'))
             
     return render_template('login.html', error=error)
@@ -34,8 +35,9 @@ def register():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        role = 1
         pswHash = generate_password_hash(password)
-        error = registerUser(username, pswHash)
+        error = registerUser(username, pswHash, role)
         if error is None:
             return redirect(url_for('auth.login'))
     
@@ -49,6 +51,21 @@ def logout():
 @authBP.route('/user')
 def user():
     return str(dict(session.items()))
+
+# decorator
+def isAdmin(view):
+    @functools.wraps(view)
+    def wrappedView(**kwargs):
+        if session.get('role') is not None:
+            if session['role'] == 1:
+                pass
+            else:
+                return 'You are not authorized for admin role!'
+        else:
+            return 'You are not logged in!'
+        return view(**kwargs)
+
+    return wrappedView
 
 # decorator
 def loginRequired(view):
