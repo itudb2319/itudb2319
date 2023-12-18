@@ -1,4 +1,4 @@
-from flask import request, render_template, Blueprint, current_app
+from flask import request, render_template, Blueprint
 
 contactBP = Blueprint('contact', __name__, url_prefix='/contact')
 
