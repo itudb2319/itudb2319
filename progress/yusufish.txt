@@ -24,3 +24,8 @@ Week 10:
   - I have added 3 new methods to the database.py for refreshing the database, execute bulk queries with transaction and execute queries based on the csv file
   - I have edited the docker based files (healthcare conditions, uploaded folder etc.)
   - I have added makefile to make easier managing docker based components
+
+Week 11:
+  - I have performed some minor changes in the some project files
+  - I have created specific page of the constructors (resulted in 1 new template, 2 new queries, 3 new functions)
+  - I have modified constructors main page
