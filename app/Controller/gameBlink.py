@@ -1,4 +1,4 @@
-from flask import request, render_template, Blueprint, current_app
+from flask import request, render_template, Blueprint
 
 gameBlinkBP = Blueprint('gameBlink', __name__, url_prefix='/gameBlink')
 	
