@@ -1,4 +1,4 @@
-from flask import request, render_template, Blueprint, current_app
+from flask import request, render_template, Blueprint
 from ..Modal.circuits import columnDict, getCircuits
 from app.Modal.filter import makeFilter
 circuitsBP = Blueprint('circuits', __name__, url_prefix='/circuits')
