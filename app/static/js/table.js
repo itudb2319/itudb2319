@@ -1,5 +1,5 @@
 // Function to create the table
-function createTable(data) {
+function createTable(data, idNames) {
     const table = document.createElement('table');
     table.className = 'center';
 
@@ -21,6 +21,9 @@ function createTable(data) {
     // Add data rows
     data.context.forEach(rowData => {
         const row = document.createElement('tr');
+        idNames.forEach(idName => {
+            row.setAttribute(idName, rowData.pop())
+        });
         rowData.forEach(cellData => {
             const td = document.createElement('td');
             td.textContent = cellData;

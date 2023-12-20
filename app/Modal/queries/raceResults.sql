@@ -1,4 +1,5 @@
-SELECT d.forename, d.surname, d.nationality, d.number, c.name || ', ' || c.country, r.year, CONCAT(res.fastestlap, '/', res.laps), res.position, regexp_replace(res.positiontext, '[^a-zA-Z]', '', 'g')
+SELECT d.forename, d.surname, d.nationality, d.number, c.name || ', ' || c.country, r.year, CONCAT(res.fastestlap, '/', res.laps), res.position, regexp_replace(res.positiontext, '[^a-zA-Z]', '', 'g'),
+      d.driverid, c.circuitid, r.raceid
 FROM drivers AS d
 JOIN results AS res USING(driverid)
 JOIN races AS r ON r.raceid = res.raceid AND

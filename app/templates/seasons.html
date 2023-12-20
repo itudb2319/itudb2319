@@ -24,7 +24,7 @@
             function addTable() {
                 const container = document.getElementById("showTable");
                 const contextData = JSON.parse('{{ context | tojson | safe }}');
-                const table = createTable(contextData);
+                const table = createTable(contextData, ['circuitid', 'raceid']);
                 table.caption.textContent = 'Year: {{ year }}, # Responses: {{ respNumber }}'
                 container.appendChild(table);
             }
