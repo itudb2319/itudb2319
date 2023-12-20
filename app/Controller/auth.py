@@ -1,5 +1,5 @@
 from flask import request, render_template, Blueprint, redirect, url_for, session, flash
-from ..Modal.authHelper import getUser, registerUser, deleteUser
+from ..Modal.authHelper import getUser, registerUser, deleteUser, updateUser
 from werkzeug.security import generate_password_hash, check_password_hash
 import functools
 
@@ -37,7 +37,7 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        user = getUser(username, password)
+        user = getUser(username)
         if user is None:
             error = 'Incorrect username.'
         elif not check_password_hash(user[5], password):
@@ -78,10 +78,30 @@ def logout():
 @loginRequired
 def user():
     error = None
-    # Delete user
     if request.method == 'POST':
-        error = deleteUser(session['userId'])
-        if error is None:
-            session.clear()
-            return redirect(url_for('index'))
+        # Delete user
+        if request.form.get('userName') is None:
+            error = deleteUser(session['userId'])
+            if error is None:
+                session.clear()
+                return redirect(url_for('index'))
+        # Update
+        else:
+            error = updateUser({
+                'userName': request.form.get('userName'),
+                'email': request.form.get('email'),
+                'userId': session['userId']
+                })
+            
+            if error is None:
+                user = getUser(request.form.get('userName'))
+                session['userId'] = user[0]
+                session['userName'] = user[1]
+                session['pp'] = user[2]
+                session['blinkscore'] = user[3]
+                session['email'] = user[4]
+                session['quizscore'] = user[7]
+                session['role'] = user[8] # 1 is for admin 0 is for user
+
+        
     return render_template('user.html', error=error)

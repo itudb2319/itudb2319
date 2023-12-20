@@ -18,6 +18,7 @@ class Database:
         self.cur = self.conn.cursor()
 
     def refreshDatabaseConnection(self):
+        self.cur.close()
         self.conn.close()
         self.conn = psycopg2.connect(
                     user = environ.get('POSTGRES_USER'),
@@ -25,6 +26,7 @@ class Database:
                     password = environ.get('POSTGRES_PASSWORD'),
                     dbname = environ.get('POSTGRES_DB')
         )
+        self.cur = self.conn.cursor()
 
     def initDb(self):
         with open(join(self.QPATH, 'schemaDev.sql')) as f:
