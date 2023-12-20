@@ -35,8 +35,7 @@
         </thead>
         <tbody>
             {% for constructor in context['context'] %}
-            <tr class="clickable-row" data-href="{{ url_for('constructors.constructorDetails', constructorId=constructor[3])}}
-                <tr>
+                <tr class="clickable-row" data-href="{{ url_for('constructors.constructorDetails', constructorId=constructor[3])}}">
                     <td>{{ loop.index }}</td>
                     <td>{{ constructor[0] }}</td>
                     <td>{{ constructor[1] }}</td>

@@ -1,7 +1,6 @@
 import psycopg2
 from os.path import join, dirname, abspath
 from os import environ
-import csv, re
 
 class Database:
 
@@ -31,12 +30,18 @@ class Database:
         with open(join(self.QPATH, 'schemaDev.sql')) as f:
             query = f.read()
 
-
+        # Check whether DB is already initialized
         created = self.executeQuery("SELECT * FROM information_schema.tables WHERE table_name=%s", params=('races',))
         if len(created) != 0:
             if len(self.executeQuery("SELECT * FROM races LIMIT 5")) > 0: return
         
         self.executeQuery(query, commit=1)
+        self.refreshDatabaseConnection()
+
+        # Create admin role
+        from ..Modal.authHelper import registerUser
+        from werkzeug.security import generate_password_hash
+        registerUser('admin', generate_password_hash('123'), role=1)
 
         tables = ['drivers', 'constructors', 'circuits', 'races', 'qualifying',
                     'status', 'sprintResults', 'results', 'pitStops', 'lapTimes',

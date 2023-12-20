@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}Driver Details{% endblock %}
+{% block content %}
+
+{% for key, value in session.items() %}
+    <p>{{ key }}: {{ value }}</p>
+
+{% endfor %}
+
+<form method="post" class="center">
+    <input type="submit" value="Delete">
+</form>
+
+{% endblock %}

@@ -1,7 +1,33 @@
-from flask import request, render_template, Blueprint, redirect, url_for, g, session
-from ..Modal.authHelper import getUser, registerUser
+from flask import request, render_template, Blueprint, redirect, url_for, session, flash
+from ..Modal.authHelper import getUser, registerUser, deleteUser
 from werkzeug.security import generate_password_hash, check_password_hash
 import functools
+
+# decorator
+def isAdmin(view):
+    @functools.wraps(view)
+    def wrappedView(**kwargs):
+        if session.get('role') is not None:
+            if session['role'] == 1:
+                pass
+            else:
+                return 'You are not authorized for admin role!'
+        else:
+            return 'You are not logged in!'
+        return view(**kwargs)
+
+    return wrappedView
+
+# decorator
+def loginRequired(view):
+    @functools.wraps(view)
+    def wrappedView(**kwargs):
+        if session.get('userId') is None:
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrappedView
 
 authBP = Blueprint('auth', __name__)
 
@@ -35,9 +61,8 @@ def register():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        role = 1
         pswHash = generate_password_hash(password)
-        error = registerUser(username, pswHash, role)
+        error = registerUser(username, pswHash, role=0)
         if error is None:
             return redirect(url_for('auth.login'))
     
@@ -48,32 +73,15 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
-@authBP.route('/user')
+
+@authBP.route('/user', methods=['GET', 'POST'])
+@loginRequired
 def user():
-    return str(dict(session.items()))
-
-# decorator
-def isAdmin(view):
-    @functools.wraps(view)
-    def wrappedView(**kwargs):
-        if session.get('role') is not None:
-            if session['role'] == 1:
-                pass
-            else:
-                return 'You are not authorized for admin role!'
-        else:
-            return 'You are not logged in!'
-        return view(**kwargs)
-
-    return wrappedView
-
-# decorator
-def loginRequired(view):
-    @functools.wraps(view)
-    def wrappedView(**kwargs):
-        if g.user is None:
-            return redirect(url_for('auth.login'))
-
-        return view(**kwargs)
-
-    return wrappedView
+    error = None
+    # Delete user
+    if request.method == 'POST':
+        error = deleteUser(session['userId'])
+        if error is None:
+            session.clear()
+            return redirect(url_for('index'))
+    return render_template('user.html', error=error)

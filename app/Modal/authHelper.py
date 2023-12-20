@@ -21,3 +21,17 @@ def registerUser(username, password, role):
         error = f"User {username} is already registered."
 
     return error
+
+def deleteUser(id):
+    error = None
+    try:
+        if db.cur is None or db.cur.closed: db.cur = db.conn.cursor()
+        db.cur.execute(
+            "DELETE FROM users WHERE userid = %s",
+            (str(id)),
+        )
+        db.conn.commit()
+    except IntegrityError:
+        error = f"User {id} does not exist."
+
+    return error
