@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}OnlyF1s{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            /* document.getElementById("---ID---").classList.add('active'); */
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div>
+    <form action="{{ url_for('standings.standing') }}" method="post" class="center">
+        <div>
+        <label for="year">Year: </label>
+        <input type="number" id="year" name="year" required placeholder="2010" min="1950" max="2022">
+        </div>
+        </br>
+        <div><button type="submit" class="f1-button">Search</button></div>
+    </form>
+    </div>
+    {% if context is defined %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const contextData = JSON.parse('{{ context | tojson | safe }}');
+                const table = createTable(contextData);
+                const container = document.getElementById("showTable");
+                container.appendChild(table);
+            });
+        </script>
+    {% endif %}
+{% endblock %}

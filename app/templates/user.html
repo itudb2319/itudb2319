@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}User Information{% endblock %}
+
+{% block content %}
+<h1>User Information</h1>
+
+<br>
+<br>
+
+<div style="text-align: center;">
+{% for key, value in session.items() %}
+    <p>{{ key|capitalize }}: {{ value }}</p>
+{% endfor %}
+</div>
+{% endblock %}

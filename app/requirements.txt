@@ -1,0 +1,5 @@
+click
+flask
+psycopg2_binary
+python-dotenv
+pika

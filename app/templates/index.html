@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block title %}OnlyF1s{% endblock %}
+{% block head %}
+{{ super() }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('home').classList.add('active');
+    });
+</script>
+
+<script defer>
+    document.addEventListener('DOMContentLoaded', function () {
+        const contextData = JSON.parse('{{ context | tojson | safe }}');
+        const table = createTable(contextData);
+        const container = document.getElementById("showTable");
+        container.appendChild(table);
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<h1>Welcome to OnlyF<span><a style="text-decoration: none; color: inherit;" href="https://ideacdn.net/idea/jd/88/myassets/products/663/6.jpg?revision=1697143329">1</a></span>s!</h1>
+<br>
+<br>
+<div class="indexDescription">
+    <p>OnlyF1s is a fandom F1 website created for the ITU BLG317E course, containing data from the years 1950 to 2023.
+    </p>
+    <p>You can access driver, constructor, circuit, and season information from the top menu.</p>
+    <p>Moreover, you can access the other tables (Driver Standings, Lap Times etc.) from the 'Others' section.</p>
+    <p>Additionally, you can access the mini quizzes we've prepared about F1 from the 'Quizzes' section and test your
+        knowledge of F1.</p>
+    <p>Furthermore, you can have fun and measure your reflex skills with the 'Blink Game' we've created.</p>
+    <p>Lastly, you can access special rankings created for you through the 'Rankings' section.</p>
+    <p>For your feedback and suggestions, you can reach us through the 'Contact Us' page located in the footer.</p>
+    <br>
+    <br>
+    <a href="https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020?select=lap_times.csv">To
+        view the dataset we've utilized, click here.</a>
+    <br>
+    <br>
+    <p><span style="font-weight: bold;">Developers: </span><a href="https://www.linkedin.com/in/emircanerol/">Emircan
+            Erol</a>, <a href="https://www.linkedin.com/in/mustafa-can-caliskan-b402221bb/">Mustafa Can Çalışkan</a>, <a
+            href="https://www.linkedin.com/in/y-emir-sezgin/">Yusuf Emir Sezgin</a>, <a
+            href="https://www.linkedin.com/in/yusuf-%C5%9Fahin-07164b262/">Yusuf Şahin</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block title %}Driver Details{% endblock %}
+{% block content %}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById("driver").classList.add('active');
+    });
+</script>
+
+<form method="post" action="{{ url_for('constructors.constructorDetails', constructorId=context['constructorId']) }}">
+    <label for="year">Enter Year:</label>
+    <input type="text" id="year" name="year" required>
+    <button type="submit">Submit</button>
+</form>
+
+{% if context['contextDriver'] %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                {% for key in context['headersDriver'] %}
+                    <th>{{ key }}</th>
+                {% endfor %}
+                <th> Year </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for constructorDriver in context['contextDriver'] %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                {% for c in range( constructorDriver|length ) %}
+                    <td>{{ constructorDriver[c] }}</td>
+                {% endfor %}
+                <th>{{ context['user_input_year'] }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No driver found.</p>
+{% endif %}
+
+{% if context['contextCircuit'] %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                {% for key in context['headersCircuit'] %}
+                    <th>{{ key }}</th>
+                {% endfor %}
+                <th> Year </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for constructorCircuit in context['contextCircuit'] %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                {% for c in range( (constructorCircuit|length) ) %}
+                    <td>{{ constructorCircuit[c]}}</td>
+                {% endfor %}
+                <th>{{ context['user_input_year'] }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No circuit found.</p>
+{% endif %}
+
+{% endblock %}

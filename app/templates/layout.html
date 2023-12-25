@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" class='image' href="{{ url_for('static', filename='img/f1.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/misc.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/form.js') }}"></script>
+    {% endblock %}
+</head>
+
+<body>
+    <div id="topnav">
+        <a href="/" class="logo-link">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='img/f1new.png') }}" alt="F1">
+            </div>
+        </a>
+        <a id='drivers' href="{{ url_for('drivers.wrapped') }}">Drivers</a>
+        <a id='circuits' href="{{ url_for('circuits.wrapped') }}">Circuits</a>
+        <a id='constructors' href="{{ url_for('constructors.wrapped') }}">Constructors</a>
+        <a id='seasons' href="{{ url_for('seasons.seasons') }}">Seasons</a>
+        <a id="layoutOthers">Others</a>
+        <div id="layoutDropdownContent">
+            <a id='qualifying' href="{{ url_for('qualifying.wrapped') }}">Qualifying</a>
+            <a id='driverStandings' href="{{ url_for('driverStandings.wrapped') }}">Driver Standings</a>
+            <a id='sprintResults' href="{{ url_for('sprintResults.wrapped') }}">Sprint Results</a>
+            <a id='results' href="{{ url_for('results.wrapped') }}">Results</a>
+            <a id='pitStops' href="{{ url_for('pitStops.wrapped') }}">Pit Stops</a>
+            <a id='status' href="{{ url_for('status.wrapped') }}">Status</a>
+            <a id='constructorStandings' href="{{ url_for('constructorStandings.wrapped') }}">Constructor Standings</a>
+            <a id='laptimes' href="{{ url_for('laptimes.wrapped') }}">Lap Times</a>
+            <a id='races' href="{{ url_for('races.wrapped') }}">Races</a>
+            <a id='constructorResults' href="{{ url_for('constructorResults.wrapped') }}">Constructor Results</a>
+        </div>
+        <a id='quiz' href="{{ url_for('quiz.quiz') }}">Quizzes</a>
+        <a id='gameBlink' href="{{ url_for('gameBlink.gameBlink') }}">Blink Game</a>
+        <a id='raceResults' href="{{ url_for('raceResults.raceResults') }}">Race Results</a>
+        <a id='rankings' href="{{ url_for('rankings.rankings') }}">Rankings</a>
+        <div id="userPanel">
+            {% if session["userId"] is defined %}
+            <a id='userInfo' href="{{ url_for('auth.user') }}">{{ session["userName"] }}</a>
+            <a id='logout' href="{{ url_for('auth.logout') }}">Log Out</a>
+            {% else %}
+            <a id='login' href="{{ url_for('auth.login') }}">Login</a>
+            <a id='register' href="{{ url_for('auth.register') }}">Sign Up</a>
+            {% endif %}
+        </div>
+    </div>
+    <section id="layoutSection">
+        <div id="content">{% block content %}{% endblock %}</div>
+        <div id="showTable">{% block tablediv %}{% endblock %}</div>
+    </section>
+    <footer id="footer">©2023, OnlyF1s<br><br><b><a id='contact' href='{{ url_for("contact.contact")}}'>Contact Us</a></b></footer>
+</body>
+
+</html>

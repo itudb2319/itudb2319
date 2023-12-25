@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<h1>Contact</h1>
+
+<div style="text-align: center;">
+    <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <br>
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" name="surname">
+        <br>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email">
+        <br>
+        <label for="subject">Message:</label>
+        <input type="text" id="subject" name="subject">
+        <br>
+        <br>
+        <button class="f1-button">Send</button>
+    </form>
+    <div>
+
+{% endblock %}

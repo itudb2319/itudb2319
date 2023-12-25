@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}OnlyF1s{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('quiz').classList.add('active');
+        });
+    </script>
+
+{% endblock %}
+
+{% block content %}
+{% if show %}
+<div class="container" class="center" >
+    <h1>Quiz App</h1>
+    <p id="question">{{ question }}</p>
+    <form id='questionForm' method='post' action="{{ url_for('quiz.quiz') }}">
+        <input name='quizid' value='{{ quizId }}' type='hidden'>
+        <ul><li onclick="document.getElementById('first').click()">
+        <input type="radio" value="{{ falseAnswers[1] }}" name="answer" id="first">
+        <label for="first">{{ falseAnswers[1] }}</label><br>
+        </li><li onclick="document.getElementById('second').click()">
+        <input type="radio" value="{{ correct }}" name="answer" id="second">
+        <label for="second">{{ correct }}</label><br>
+        </li><li onclick="document.getElementById('third').click()">
+        <input type="radio" value="{{ falseAnswers[0] }}" name="answer" id="third">
+        <label for="third">{{ falseAnswers[0] }}</label>
+        </li></ul>
+        <button type="submit" class="f1-button">Submit</button>
+    </form>
+</div>
+{% endif %}
+
+{% if not show %}
+<div class="center">
+    <p><strong>{{ isCorrect }}</strong></p>
+    <p>Your Quiz Score: {{ session['quizscore'] }}</p>
+    <a href="{{ url_for('quiz.quiz') }}">
+        <button class="f1-button">Next</button>
+    </a>
+<div>
+{% endif %}
+{% endblock %}

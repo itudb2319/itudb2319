@@ -1,0 +1,11 @@
+<div class="pagebar">
+    <form class="pagebarForm" method="POST" id="pagebarForm" action={{action}}>
+        <table>
+            <tr>
+                {% for key in range(1, length + 1): %}
+                <td><input type="radio" name="page" id={{key}} value={{key}} {% if currentPageNumber == key|string %}checked{% endif %}></td>
+                {%endfor%}
+            </tr>
+        </table>
+    </form>
+</div>

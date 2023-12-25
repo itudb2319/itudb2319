@@ -1,0 +1,93 @@
+{% set name = context["tableName"] %}
+{% set orderBy=context['orderBy'] %}
+{% set action= "/" + context['tableName']%}
+{% set selectedShowColumns = context['selectedShowColumns'] %}
+{% set allColumns = context['allColumns'] %}
+{% set lastSearched = context['lastSearched'] %}
+{% set id = context['id'] %}
+{% set auth = session['role'] %}
+{% set limitter = context['limitter'] %}
+
+{% extends 'layout.html' %}
+
+{% block title %}{{ name|capitalize }}{% endblock %}
+
+{% block content %}
+<h1 id={{name}}>{{name|capitalize}}</h1>
+
+{% include 'misc/button.html' %}
+
+{% if auth %}
+<button class='f1-button' id="deleteOperation">Delete Selected</button>
+{% endif %}
+
+{% if context['context'] %}
+
+<form method="POST" id="updateForm"></form>
+<table id={{auth}}>
+    <thead>
+        <tr>
+            <th class="admin"> </th>
+            <th>#</th>
+            {% for header in selectedShowColumns %}
+            <th>{{header|capitalize}}</th>
+            {% endfor %}
+            <th class="admin">Update</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for data in context['context'] %}
+        <tr id="{{ data[0] }}">
+            <td class="admin">
+                <input class="admin" type="checkbox" id="checkboxDelete"
+                    name="{{ name ~ '_' ~ id|string ~ '_' ~ data[0]|string }}" value="checkboxDelete"></input>
+            </td>
+
+            <td>{{ loop.index }}</td>
+            {% for item in range(1, data|length) %}
+                {% if selectedShowColumns[item-1].lower() == "url" %}
+                    <td titlename="{{ selectedShowColumns[item-1] }}">
+                    <a href="{{ data[item] }}" class="links">link</a>
+                    </td>
+                {% else %}
+                    <td titlename="{{ selectedShowColumns[item-1] }}">{{ data[item] }}</td>
+                {% endif %}
+               
+            {% endfor %}
+
+            <td class="admin" class="updateOperation">
+                <button id="updateButton" class="f1-button" class="admin" value="{{ data[0] }}" class="updateOperation"
+                    name="update" onclick="insertRowAfter(this, '{{ name }}');">
+                    Update
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p> No {{ name }} found. </p>
+{% endif %}
+
+{% if auth %}
+<br>
+<br>
+<button class='f1-button' id='createButton'>
+    Create New Row
+</button>
+
+<div id="createArea">
+    <ul>
+        {% for name in allColumns %}
+        <li>
+            <label for="{{ name }}">{{ name }}</label>
+            <input id="insertElements" type="text" name="{{ name }}">
+        </li>
+        {% endfor %}
+    </ul>
+    <button class='f1-button' id="createSendButton">Insert</button>
+</div>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block title %}Results{% endblock %}
+{% block content %}
+
+<h1>Results</h1>
+
+{% if context['context'] %}
+    <table>
+        <thead>
+            <tr>
+                {% for column in context['columns'] %}
+                    <td>{{ column }}</td>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in context['context'] %}
+                <tr>
+                    {% for item in result %}
+                        <td>{{ item }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+
+{% endblock %}

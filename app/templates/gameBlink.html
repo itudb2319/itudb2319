@@ -1,0 +1,155 @@
+{% extends "layout.html" %}
+{% block title %}OnlyF1s{% endblock %}
+{% block content %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/blink.css') }}">
+{{ super() }}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const gameContainer = document.getElementById('game-container');
+    const lights = document.querySelectorAll('.light');
+    const startButton = document.getElementById('start-button');
+    let lightsClicked = 0;
+    let startTime, endTime, lastResponseTime, gameRunning = false;
+
+    function startGame() {
+      resetLights(); // Always reset the lights when starting a new game
+
+      lightsClicked = 0;
+      updateLights();
+
+      // Set all lights to grey
+      lights.forEach((light, index) => {
+        light.style.backgroundColor = '#d1d1d1';
+
+        // Turn on lights from left to right
+        setTimeout(() => {
+          if (lightsClicked < lights.length) {
+            light.style.backgroundColor = 'red';
+            lightsClicked++;
+            updateLights();
+          }
+
+          if (lightsClicked === lights.length) {
+            startRace();
+          }
+        }, index * 1000); // Adjust the delay between lights
+      });
+    }
+
+    function startRace() {
+      startTime = new Date();
+      gameRunning = true;
+
+      // Enable clicks when all lights are red
+      enableClicks();
+
+      // Instantly turn all lights to green
+      lights.forEach((light) => {
+        light.style.backgroundColor = '#00ff00';
+      });
+    }
+
+    function enableClicks() {
+      gameContainer.onclick = function (event) {
+        if (gameRunning) {
+          const clickedLight = event.target;
+          if (clickedLight.classList.contains('light')) {
+            if (clickedLight.style.backgroundColor === 'rgb(0, 255, 0)') {
+              endTime = new Date();
+              const responseTime = endTime - startTime;
+              lastResponseTime = responseTime;
+              alert('Your response time: ' + responseTime + ' milliseconds');
+              gameRunning = false;
+              gameContainer.onclick = null; // Disable further clicks
+              updateLastResponseTime();
+            } else {
+              // Reset the game if clicked on any light
+              resetGame();
+            }
+          }
+        }
+      };
+    }
+
+    function resetGame() {
+      resetLights();
+      gameContainer.onclick = null; // Disable further clicks
+      startButton.style.display = 'block';
+    }
+
+    function resetLights() {
+      // Set all lights to grey and make them visible
+      lights.forEach((light, index) => {
+        light.style.backgroundColor = '#d1d1d1';
+        light.style.display = 'block';
+      });
+      gameRunning = false;
+    }
+
+    function updateLights() {
+      document.getElementById('lights-clicked').textContent = 'Lights Turned: ' + lightsClicked;
+    }
+
+    function updateLastResponseTime() {
+      document.getElementById('last-response-time').textContent = 'Last Response Time: ' + lastResponseTime + ' milliseconds';
+      document.getElementById('last-response-time').style.display = 'block'; // Show the last response time
+      startButton.style.display = 'block'; // Show the start button after the response time is displayed
+    }
+
+    startButton.addEventListener('click', function () {
+      startButton.style.display = 'none'; // Hide the start button when the game starts
+      document.getElementById('last-response-time').style.display = 'none'; // Hide the last response time when starting a new game
+      startGame();
+    });
+
+    // Initially, show the start button
+    startButton.style.display = 'block';
+  });
+</script>
+{% endblock %}
+
+<body>
+  <h1>F1 Blink Test</h1>
+  <div class="blinkTest">
+    <p>
+        Welcome to the Grid Light Test which is known as "The Blink Test".
+    </p>
+    <p>
+        For a second think yourself as a F1 driver. The race will be start soon and you are waiting for the lights.
+    </p>
+    <p>
+        Even milliseconds are important! You cannot blink now!!
+    </p>
+    <p>
+        Lights slowly turns red aaaand...
+    </p>
+    <p>
+       GREEN!!! GO!!
+    </p>
+    <p>
+        So this test determines your respond time. Have it a try!!
+    </p>
+    <p>
+      |
+    </p>
+    <p>
+      |
+    </p>
+    <p>
+      |
+    </p>
+    
+    <div id="game-container">
+      <div class="light" style="left: 60px;"></div>
+      <div class="light" style="left: 130px;"></div>
+      <div class="light" style="left: 200px;"></div>
+      <div class="light" style="left: 270px;"></div>
+    </div>
+    <button class="f1-button" id="start-button">Start Game</button>
+    <p id="lights-clicked">Lights Turned: 0</p>
+    <p id="last-response-time" style="display: none;">Last Response Time: N/A</p>
+  </div>
+</body>
+{% endblock %}

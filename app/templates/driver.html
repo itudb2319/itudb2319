@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}Driver Details{% endblock %}
+{% block content %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById("driver").classList.add('active');
+    });
+</script>
+
+{% if context['career'] %}
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            {% for header in context['headerC'] %}
+                <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for career in context['career'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            {% for c in range(career|length) %}
+            <td>{{ career[c]}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No Career found.</p>
+{% endif %}
+
+{% if context['personal'] %}
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            {% for header in context['headerP'] %}
+                <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for personal in context['personal'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            {% for p in range(personal|length) %}
+            <td>{{ personal[p]}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No driver found.</p>
+{% endif %}
+
+{% endblock %}
