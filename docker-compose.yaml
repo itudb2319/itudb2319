@@ -19,6 +19,8 @@ services:
       - POSTGRES_HOST=${POSTGRES_HOST}
     env_file:
       - .env
+    volumes:
+      - ./app:/project/app 
 
   database:
     image: "postgres:latest"

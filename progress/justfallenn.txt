@@ -1,0 +1,34 @@
+Progress Log
+Yusuf Emir Sezgin - 150200066
+.
+.
+.
+WEEK 6:
+- We created an online database at cockroachLabs
+- races, lapTimes, constructorResults, and answers schemas are created as tables in our database.
+- All schemas are integrated into our database at once.
+
+WEEK 7 (The 1st Midterm Week):
+- I added getDrivers(), getCircuits(), getSeasons() method to the database.py.
+
+WEEK 8:
+- I added contact, f1-button, f1-button:hover attributes.
+- I added login(), contact(), gameBlink(), signUp() methods to app.py.
+- I added getUsers() method to the database.py
+- I added html files: login.html, contact.html, gameBlink.html, and signUp.html.
+- I added a font file.
+
+WEEK 9:
+- I updated the app directory and general order of the flask app using blueprints.
+- I updated templates of login, signup, and contact.
+
+WEEK 10:
+- I added rankings and constructors pages.
+- The rankings page, gives different kinds of query results like total wins of the drivers.
+- I updated css file and added list style.
+
+WEEk 11:
+- I added driver page which gives the spesific driver details when clicked on a row in the drivers page.
+
+WEEK 12:
+- We finished our project together.

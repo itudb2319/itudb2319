@@ -1,0 +1,34 @@
+Yusuf Şahin - 150200016
+
+Week 6: 
+  - We crated an online database at "cockroachlabs.com" to work as a team synchronically
+  - I have created tables of results, status, pitstop, constructorStandings according to Entity Relationship Diagram
+
+Week 7 (The 1st Midterm Week):
+  - I have modified app.py file to display data brought from the database via queries.
+
+Week 8 (The 2nd Midterm Week):
+  - I have added drivers and driveDetails functions
+  - I have updated index & layout templates and drivers & driver templates 
+  - I have updated drivers.sql
+
+Week 9:
+  - I have changed the code structure. It is compatible with MVC pattern now.
+  - I have performed some minor changed on a few file and classes i.e Database class, app.py.
+  - I have configured the dockerfile and docker-compsose.yaml files
+
+Week 10:
+  - I have added a new table keeps the other tables (lkp_tables)
+  - I have added admin Blueprint and one of the its page bulkCUD (Create Update Delete via uploading a csv file based on a name convention) with its template
+  - I have modified the schema for lkp_tables and cascade delete/update operations
+  - I have added 3 new methods to the database.py for refreshing the database, execute bulk queries with transaction and execute queries based on the csv file
+  - I have edited the docker based files (healthcare conditions, uploaded folder etc.)
+  - I have added makefile to make easier managing docker based components
+
+Week 11:
+  - I have performed some minor changes in the some project files
+  - I have created specific page of the constructors (resulted in 1 new template, 2 new queries, 3 new functions)
+  - I have modified constructors main page
+
+WEEK 12:
+- We finished our project together.
