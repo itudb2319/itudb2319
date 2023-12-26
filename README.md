@@ -12,3 +12,27 @@ Project Description: The fandom project for the Formula 1
 <td>Yusuf Emir Sezgin</td><td>150200066</td><td>JustFallenn</td></tr>
 <tr><td>Yusuf Şahin</td> <td>150200016</td><td>yusufish</td></tr>
 </table>
+
+<div>
+  <h1>Admin</h1>
+  <p>With admin privilleges you can do CRUD operations for all tables.</p>
+  <table>
+    <caption>Admin user information</caption>
+    <thead>
+      <tr>
+        <td>
+          Username
+        </td>
+        <td>
+          Password
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>admin</td>
+        <td>123</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
