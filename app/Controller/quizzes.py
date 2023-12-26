@@ -1,10 +1,12 @@
 from flask import request, render_template, Blueprint, session
 from ..Modal.quizUtils import getQuestion, getCorrect
 from ..Modal.database import db
+from ..Controller.auth import loginRequired
 
 quizBP = Blueprint('quiz', __name__, url_prefix='/quiz')
 
 @quizBP.route('/', methods = ['GET', 'POST'])
+@loginRequired
 def quiz():
 	if request.method == 'POST':
 		quizId = request.form.get('quizid')
