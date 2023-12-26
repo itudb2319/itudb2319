@@ -1,16 +1,49 @@
 {% extends 'layout.html' %}
 
-{% block title %}User Information{% endblock %}
+{% block title %}Driver Details{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <script>
+        function changeVisibility(button){
+            var element = document.getElementById("insertForm");
+
+            if (element.style.visibility == "visible") {
+                button.innerText = "Show"
+                element.style.visibility = "hidden";
+            }
+            else {
+                button.innerText = "Hide"
+                element.style.visibility = "visible";
+            }
+            
+        }
+    </script>
+{% endblock %}
 
 {% block content %}
-<h1>User Information</h1>
 
-<br>
-<br>
-
-<div style="text-align: center;">
+<div class="center">
 {% for key, value in session.items() %}
-    <p>{{ key|capitalize }}: {{ value }}</p>
+    <p>{{ key }}: {{ value }}</p>
 {% endfor %}
 </div>
+
+<div class="center">
+    <button class="f1-button" onclick="changeVisibility(this);">Show</button>
+    <div id="insertForm" style="visibility: hidden;">
+        <form method="post" class="center">
+            <label for="userName">Username: </label>
+            <input type="text" id="userName" name="userName" placeholder="{{ session['userName'] }}"><br>
+            <label for="email">Email: </label>
+            <input type="text" id="email" name="email" placeholder="{{ session['email'] }}"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+
+<form method="post">
+    <input class="f1-button" type="submit" value="Delete">
+</form>
+
 {% endblock %}
