@@ -339,7 +339,7 @@ CREATE TABLE IF NOT EXISTS users(
 );
 
 CREATE TABLE IF NOT EXISTS answers(
-	answerId INT,
+	answerId INT GENERATED ALWAYS AS IDENTITY,
 	userId INT,
 	quizId INT,
 	time TIMESTAMP,
