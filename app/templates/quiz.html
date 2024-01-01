@@ -10,26 +10,52 @@
 
 {% endblock %}
 
+{% set auth = session['role'] %}
+
 {% block content %}
 {% if show %}
-<div class="container" class="center" >
-    <h1>Quiz App</h1>
-    <p id="question">{{ question }}</p>
-    <form id='questionForm' method='post' action="{{ url_for('quiz.quiz') }}">
-        <input name='quizid' value='{{ quizId }}' type='hidden'>
-        <ul><li onclick="document.getElementById('first').click()">
-        <input type="radio" value="{{ falseAnswers[1] }}" name="answer" id="first">
-        <label for="first">{{ falseAnswers[1] }}</label><br>
-        </li><li onclick="document.getElementById('second').click()">
-        <input type="radio" value="{{ correct }}" name="answer" id="second">
-        <label for="second">{{ correct }}</label><br>
-        </li><li onclick="document.getElementById('third').click()">
-        <input type="radio" value="{{ falseAnswers[0] }}" name="answer" id="third">
-        <label for="third">{{ falseAnswers[0] }}</label>
-        </li></ul>
-        <button type="submit" class="f1-button">Submit</button>
-    </form>
-</div>
+
+    {% if not empty %}
+        {% if auth %}
+        <div class="createQuizButton">
+            <a href="{{ url_for('quiz.createQuiz') }}"> Create a Quiz </a>
+        </div>
+
+        <div class="updateQuizButton">
+            <a href="{{ url_for('quiz.updateQuiz', quiz_id=quizId) }}"> Update the Quiz </a>
+        </div>
+
+        <div class="deleteQuizButton">
+            <a href="{{ url_for('quiz.deleteQuiz', quiz_id=quizId) }}"> Delete the Quiz </a>
+        </div>
+        {% endif %}
+
+    <div class="container" class="center" >
+        <h1>Quiz App</h1>
+        <p id="question">{{ question }}</p>
+        <form id='questionForm' method='post' action="{{ url_for('quiz.quiz') }}">
+            <input name='quizid' value='{{ quizId }}' type='hidden'>
+            <ul><li onclick="document.getElementById('first').click()">
+            <input type="radio" value="{{ falseAnswers[1] }}" name="answer" id="first" required>
+            <label for="first">{{ falseAnswers[1] }}</label><br>
+            </li><li onclick="document.getElementById('second').click()">
+            <input type="radio" value="{{ correct }}" name="answer" id="second" required>
+            <label for="second">{{ correct }}</label><br>
+            </li><li onclick="document.getElementById('third').click()">
+            <input type="radio" value="{{ falseAnswers[0] }}" name="answer" id="third" required>
+            <label for="third">{{ falseAnswers[0] }}</label>
+            </li></ul>
+            <button type="submit" class="f1-button">Submit</button>
+        </form>
+    </div>
+
+     {% else %}
+        <div class="createQuizButton">
+            <a href="{{ url_for('quiz.createQuiz') }}"> Create a Quiz </a>
+        </div>
+        <h1>There is no quiz for today</h1>
+    {% endif %}
+
 {% endif %}
 
 {% if not show %}
