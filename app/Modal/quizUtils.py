@@ -7,7 +7,9 @@ def getQuestion():
                               ORDER BY random()
                               LIMIT 1;
                               ''')
-    return results[0]
+    if len(results):
+        return results[0]
+    return None
 
 def getCorrect(quizId):
     results = db.executeQuery('''
