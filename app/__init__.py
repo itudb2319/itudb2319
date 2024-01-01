@@ -1,5 +1,6 @@
 from flask import Flask
 from app.Modal.database import db
+from .Modal.mail_setup import mail
 
 db.initDb()
 
@@ -38,6 +39,7 @@ def create_app():
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
 
+    mail.init_app(app)
     app.register_blueprint(standingsBP)
     app.register_blueprint(authBP)
     app.register_blueprint(driversBP)
