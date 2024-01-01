@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}OnlyF1s{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('quiz').classList.add('active');
+        });
+    </script>
+
+{% endblock %}
+{% block content %}
+
+    {% if operation == 'create' %}
+
+    <div class="container" class="center" >
+        <h1>Create Quiz</h1>
+        <form id='createQuizForm' method='post' action="{{ url_for('quiz.createQuiz') }}">
+            <label for="content">Question:</label><br>
+            <input type="text" id="content" name="content"><br>
+            <label for="option1">Option 1:</label><br>
+            <input type="text" id="option1" name="option1"><br>
+            <label for="option2">Option 2:</label><br>
+            <input type="text" id="option2" name="option2"><br>
+            <label for="correct">Correct Answer:</label><br>
+            <input type="text" id="correct" name="correct"><br>
+            <button type="submit" class="f1-button">Create Quiz</button>
+        </form>
+    </div>
+
+    {% elif operation == 'update' %}
+
+    <div class="container" class="center" >
+        <h1>{{ quiz[1] }}</h1>
+        <form id='updateQuizForm' method='post' action="{{ url_for('quiz.updateQuiz', quiz_id=quiz[0]) }}">
+            <label for="content">Question:</label><br>
+            <input type="text" id="content" name="content" value="{{ quiz[1] }}"><br>
+            <label for="option1">Option 1:</label><br>
+            <input type="text" id="option1" name="option1" value="{{ quiz[2] }}"><br>
+            <label for="option2">Option 2:</label><br>
+            <input type="text" id="option2" name="option2" value="{{ quiz[3] }}"><br>
+            <label for="correct">Correct Answer:</label><br>
+            <input type="text" id="correct" name="correct" value="{{ quiz[4] }}"><br>
+            <button type="submit" class="f1-button">Update Quiz</button>
+        </form>
+    </div>
+    {% endif %}
+{% endblock %}
