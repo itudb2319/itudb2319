@@ -3,3 +3,4 @@ flask
 psycopg2_binary
 python-dotenv
 pika
+flask_mail
