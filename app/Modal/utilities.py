@@ -164,7 +164,7 @@ def updateElements(tableName, updateElementList, id):
     primaryKey = getPrimary(tableName)[0][0]
 
     for i in range(len(columnList)):
-        if (updateElementList[i][1] == ''):
+        if (updateElementList[i][1] == '' or updateElementList[i][1] == 'None'):
             query += f"{columnList[i][0]} = NULL"
         elif (re.search("int", columnList[i][1]) or re.search("numeric", columnList[i][1])):
             query += f"{columnList[i][0]} = {updateElementList[i][1]}"
