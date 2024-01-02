@@ -267,7 +267,7 @@ li:hover {
     display: none;
     right: -8.5em;
     position: fixed;
-    background-color: #333;
+    background-color: #222;
     width: max-content;
     flex-direction: column;
     border-radius: 10%;
@@ -312,4 +312,13 @@ li:hover {
     text-decoration: none;
     color: #333;
     font-weight: bold;
+}
+
+/* Quiz Display */
+.quizButtons {
+    margin: 2em !important;
+}
+
+.quizArea {
+    display:flex;
 }

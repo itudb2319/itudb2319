@@ -17,8 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const hoverElement = document.getElementById('layoutOthers');
 
     hoverElement.addEventListener('mouseover', function (e) {
-        xDiv.style.left = e.pageX + 'px';
-        xDiv.style.top = e.pageY + 'px';
+        const dims = hoverElement.getBoundingClientRect();
+        xDiv.style.left = dims.left + 'px';
+        xDiv.style.top = dims.bottom + 'px';
         xDiv.style.display = 'flex';
 
     });
@@ -69,11 +70,24 @@ document.addEventListener("DOMContentLoaded", function() {
     var button = document.getElementById("createButton");
     button.addEventListener("click", function() {
         var element = document.getElementById("createArea")
-        if (element.style.display == "none") {
-            element.style.display = "revert";
-        } else {
+        if (element.style.display == "revert") {
             element.style.display = "none";
+        } else {
+            element.style.display = "revert";
         }
     });
 });
 
+
+function changeVisibility(button){
+    var element = document.getElementById("insertForm");
+
+    if (element.style.visibility == "visible") {
+        button.innerText = "Update Informations"
+        element.style.visibility = "hidden";
+    }
+    else {
+        button.innerText = "Hide"
+        element.style.visibility = "visible";
+    }
+}

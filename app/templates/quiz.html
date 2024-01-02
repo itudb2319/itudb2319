@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block title %}OnlyF1s{% endblock %}
 {% block head %}
-    {{ super() }}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('quiz').classList.add('active');
-        });
-    </script>
+{{ super() }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('quiz').classList.add('active');
+    });
+</script>
 
 {% endblock %}
 
@@ -14,47 +14,52 @@
 
 {% block content %}
 {% if show %}
+<h1>Quizzes</h1>
+{% if not empty %}
+{% if auth %}
+<div class="quizArea">
+    <form action="{{ url_for('quiz.createQuiz') }}" method="get" class="quizButtons">
+        <button type="submit" class="f1-button">Create a Quiz</button>
+    </form>
 
-    {% if not empty %}
-        {% if auth %}
-        <div class="createQuizButton">
-            <a href="{{ url_for('quiz.createQuiz') }}"> Create a Quiz </a>
-        </div>
+    <form action="{{ url_for('quiz.updateQuiz', quiz_id=quizId) }}" method="get" class="quizButtons">
+        <button type="submit" class="f1-button">Update the Quiz</button>
+    </form>
 
-        <div class="updateQuizButton">
-            <a href="{{ url_for('quiz.updateQuiz', quiz_id=quizId) }}"> Update the Quiz </a>
-        </div>
+    <form action="{{ url_for('quiz.deleteQuiz', quiz_id=quizId) }}" method="post" class="quizButtons">
+        <button type="submit" class="f1-button">Delete the Quiz</button>
+    </form>
+</div>
+{% endif %}
 
-        <div class="deleteQuizButton">
-            <a href="{{ url_for('quiz.deleteQuiz', quiz_id=quizId) }}"> Delete the Quiz </a>
-        </div>
-        {% endif %}
+<div class="container" class="center">
+    <p id="question">{{ question }}</p>
+    <form id='questionForm' method='post' action="{{ url_for('quiz.quiz') }}">
+        <input name='quizid' value='{{ quizId }}' type='hidden'>
+        <ul>
+            <li onclick="document.getElementById('first').click()">
+                <input type="radio" value="{{ options[0] }}" name="answer" id="first" required>
+                <label for="first">{{ options[0] }}</label><br>
+            </li>
+            <li onclick="document.getElementById('second').click()">
+                <input type="radio" value="{{ options[1] }}" name="answer" id="second" required>
+                <label for="second">{{ options[1] }}</label><br>
+            </li>
+            <li onclick="document.getElementById('third').click()">
+                <input type="radio" value="{{ options[2] }}" name="answer" id="third" required>
+                <label for="third">{{ options[2] }}</label>
+            </li>
+        </ul>
+        <button type="submit" class="f1-button">Submit</button>
+    </form>
+</div>
 
-    <div class="container" class="center" >
-        <h1>Quiz App</h1>
-        <p id="question">{{ question }}</p>
-        <form id='questionForm' method='post' action="{{ url_for('quiz.quiz') }}">
-            <input name='quizid' value='{{ quizId }}' type='hidden'>
-            <ul><li onclick="document.getElementById('first').click()">
-            <input type="radio" value="{{ falseAnswers[1] }}" name="answer" id="first" required>
-            <label for="first">{{ falseAnswers[1] }}</label><br>
-            </li><li onclick="document.getElementById('second').click()">
-            <input type="radio" value="{{ correct }}" name="answer" id="second" required>
-            <label for="second">{{ correct }}</label><br>
-            </li><li onclick="document.getElementById('third').click()">
-            <input type="radio" value="{{ falseAnswers[0] }}" name="answer" id="third" required>
-            <label for="third">{{ falseAnswers[0] }}</label>
-            </li></ul>
-            <button type="submit" class="f1-button">Submit</button>
-        </form>
-    </div>
-
-     {% else %}
-        <div class="createQuizButton">
-            <a href="{{ url_for('quiz.createQuiz') }}"> Create a Quiz </a>
-        </div>
-        <h1>There is no quiz for today</h1>
-    {% endif %}
+{% else %}
+<form action="{{ url_for('quiz.createQuiz') }}" method="get">
+    <button type="submit" class="f1-button">Create a Quiz</button>
+</form>
+<p style="text-align: center; font-size: 20px;">There is no quiz for today :(</p>
+{% endif %}
 
 {% endif %}
 
@@ -65,6 +70,6 @@
     <a href="{{ url_for('quiz.quiz') }}">
         <button class="f1-button">Next</button>
     </a>
-<div>
-{% endif %}
-{% endblock %}
+    <div>
+        {% endif %}
+        {% endblock %}
