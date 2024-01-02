@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS races(
 	date DATE,
 	time TIME,
 	url VARCHAR(255),
-	fp1_date DATE,
+	fp1date DATE,
 	fp1time TIME,
 	fp2date DATE,
 	fp2time TIME,
