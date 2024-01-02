@@ -13,9 +13,8 @@ def getQuestion():
 
 def getCorrect(quizId):
     results = db.executeQuery('''
-                              SELECT correctanswer
+                              SELECT correctAnswer
                               FROM quiz
                               WHERE quizid = %s
                               ''', params=[int(quizId)], getData=1)
     return results
-

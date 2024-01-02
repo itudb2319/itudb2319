@@ -2,7 +2,7 @@ from flask import request, render_template, Blueprint, session, redirect, url_fo
 from ..Modal.quizUtils import getQuestion, getCorrect
 from ..Modal.database import db
 from ..Controller.auth import loginRequired
-import datetime
+import datetime, random
 
 quizBP = Blueprint('quiz', __name__, url_prefix='/quiz')
 
@@ -33,7 +33,9 @@ def quiz():
 	result = getQuestion()
 	if result is not None:
 		quizId, content, option1, option2, correct = result
-		return render_template('quiz.html', show=True, quizId=quizId, question=content, correct=correct, falseAnswers=[option1, option2], empty=False)
+		options = [option1, option2, correct]
+		random.shuffle(options)
+		return render_template('quiz.html', show=True, quizId=quizId, question=content, options=options, empty=False)
 	else:
 		return render_template('quiz.html', show=True, empty=True)
 
@@ -93,6 +95,6 @@ def updateQuiz(quiz_id):
 @quizBP.route('/deleteQuiz/<quiz_id>', methods = ['GET', 'POST'])
 @loginRequired
 def deleteQuiz(quiz_id):
-	if request.method == "GET":
+	if request.method == "POST":
 		db.executeQuery("DELETE FROM quiz WHERE quizid = %s", params=[int(quiz_id)], commit=1)
 		return redirect(url_for('quiz.quiz'))

@@ -20,7 +20,7 @@ def rankingDetails(rankingName):
 	else:
 		limNumber = 5
 		params = {'slimNumber' : limNumber}
-		
+
 		context = getRankings(rankingName, params)
 		columns = getHeadersForRanking(rankingName)
 		data = {'context': context, 'headers':columns, 'HEADER': rankingName}

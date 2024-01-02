@@ -83,7 +83,7 @@ def genericDataPrinter(tableName, id, columnDisplay, limitter, search=None, orde
 
     query = query.replace(";", "")
     query = query.replace("--", "")
-
+    #raise ValueError(query)
     data = db.executeQuery(query)
     return data
 
@@ -114,6 +114,7 @@ def parseForms(requestForm):
             insertedElementList.append((key.split("_")[0], key.split("_")[1]))
         elif key =="limitter":
             limitter = value
+        #raise ValueError(limitter)
     if len(updatedElementList) > 0:
         updatedElementList.pop(0)
     return showList, orderBy, search, deletedElementIdList, deletedElementTableName, deletedElementId, updatedElementList, insertedElementList, limitter

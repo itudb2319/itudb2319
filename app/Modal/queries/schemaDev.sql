@@ -382,4 +382,53 @@ SELECT re.driverid,
     FROM races r JOIN results re ON re.raceid = r.raceid 
     JOIN drivers d ON d.driverid = re.driverid 
     WHERE re.positiontext = '1'
-    GROUP BY re.driverid, re.positiontext
+    GROUP BY re.driverid, re.positiontext;
+
+CREATE VIEW PER_WINS AS
+SELECT d.forename, d.surname,
+(SELECT CONCAT(MIN(r.year), ' - ', MAX(r.year))
+FROM races r JOIN results re ON re.raceid = r.raceid
+WHERE re.positiontext = '1' AND re.driverid = d.driverid) AS seasons,
+COUNT (re.driverid) AS ENTRY, 
+COUNT(CASE WHEN re.positiontext = '1' THEN 1 ELSE NULL END) AS total_wins,
+ROUND((COUNT(CASE WHEN re.positiontext = '1' THEN 1 ELSE NULL END)::NUMERIC / COUNT (re.driverid))::NUMERIC * 100, 2) AS win_rate
+FROM drivers d JOIN results re ON d.driverid = re.driverid 
+GROUP BY d.forename, d.surname, d.driverid
+ORDER BY win_rate 
+DESC;
+
+CREATE OR REPLACE FUNCTION get_race_results(slimNumber INTEGER)
+RETURNS TABLE (
+    forename VARCHAR(255),
+    surname VARCHAR(255),
+    age INTERVAL,
+    name VARCHAR(255),
+    season INTEGER,
+    round INTEGER,
+    result VARCHAR(255)
+) AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT d.forename, 
+    d.surname, 
+    a.max_age as age, 
+    r.name,
+    a.season, 
+    r.round, 
+    re.positiontext as result 
+    FROM races r JOIN results re ON re.raceid = r.raceid 
+    JOIN drivers d ON d.driverid = re.driverid 
+    JOIN status s ON re.statusid = s.statusid
+    JOIN (SELECT re.driverid, 
+            MAX(AGE(r.date, d.dob)) as max_age, 
+            MIN(r.year) as season,
+            s.statusid
+        FROM races r JOIN results re ON re.raceid = r.raceid 
+        JOIN drivers d ON d.driverid = re.driverid 
+        JOIN status s ON re.statusid = s.statusid WHERE s.statusid = 1
+        GROUP BY re.driverid, s.statusid
+    ) a ON d.driverid = a.driverid 
+    AND AGE(r.date, d.dob) = a.max_age AND s.statusid = a.statusid
+    ORDER BY age DESC
+    LIMIT slimNumber;
+END; $$ LANGUAGE plpgsql;
