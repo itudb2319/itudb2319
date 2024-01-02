@@ -12,7 +12,7 @@ down-volumes:
 	docker-compose down -v
 
 rmi:
-	docker image rm itudb2319-app postgres rabbitmq:3-management
+	docker image rm itudb2319_app postgres rabbitmq:3-management
 
 rm-app:
 	docker image rm itudb2319-app
