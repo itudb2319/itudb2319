@@ -1,21 +1,17 @@
 up:
-	docker-compose up
+	docker-compose up --build
 
 down:
 	docker-compose down
-
-down-all:
-	docker-compose down
-	docker system prune -a
 
 down-volumes:
 	docker-compose down -v
 
 rmi:
-	docker image rm itudb2319_app postgres rabbitmq:3-management
+	docker image rm web-app postgres rabbitmq:3-management
 
 rm-app:
-	docker image rm itudb2319-app
+	docker image rm web-app
 
 rm-db:
 	docker image rm postgres
