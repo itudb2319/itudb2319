@@ -1,8 +1,8 @@
 up:
 ifeq ($(DETACH),true)
-	docker-compose up --build -d
+	docker-compose up -d
 else
-	docker-compose up --build
+	docker-compose up
 endif
 
 
