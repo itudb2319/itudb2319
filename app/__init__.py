@@ -1,6 +1,6 @@
 from flask import Flask
-from app.Modal.database import db
-from .Modal.mail_setup import mail
+from app.Model.database import db
+from .Model.mail_setup import mail
 
 db.initDb()
 
