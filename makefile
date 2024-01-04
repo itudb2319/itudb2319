@@ -1,5 +1,10 @@
 up:
+ifeq ($(DETACH),true)
+	docker-compose up --build -d
+else
 	docker-compose up --build
+endif
+
 
 down:
 	docker-compose down
