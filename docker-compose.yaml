@@ -4,7 +4,8 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./app/dockerfile 
+      dockerfile: ./app/dockerfile
+    image: web-app
     restart: always
     container_name: app
     ports:
