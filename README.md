@@ -14,7 +14,7 @@ Project Description: Formula 1 themed fandom webpage.
 </table>
 
 <div>
-  <h1>Admin</h1>
+  <h2>Admin</h2>
   <p>You can perform CRUD operations using admin privileges.</p>
   <table>
     <caption>Admin user information</caption>
