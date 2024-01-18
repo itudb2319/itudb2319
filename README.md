@@ -1,7 +1,7 @@
 # itudb2319
-BLG317E Database Systems Course Project 2023-2024 Fall Term </br>
+BLG317E Database Systems Course 2023-2024 Fall Term Project</br>
 Project Name: OnlyF1s </br>
-Project Description: The fandom project for the Formula 1
+Project Description: Formula 1 themed fandom webpage.
 <table>
 <tr><th>Name</th><th>ITU ID</th><th>Username</th><tr>
 <tr>
@@ -15,7 +15,7 @@ Project Description: The fandom project for the Formula 1
 
 <div>
   <h1>Admin</h1>
-  <p>With admin privilleges you can do CRUD operations for all tables.</p>
+  <p>You can perform CRUD operations using admin privileges.</p>
   <table>
     <caption>Admin user information</caption>
     <thead>
